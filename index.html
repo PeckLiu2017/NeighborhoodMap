@@ -11,6 +11,7 @@
 <body>
   <!-- 地图容器 -->
   <div id="container"></div>
+  <div id="panel"></div>
   <div id="myPageTop">
     <table>
       <tr>
@@ -37,21 +38,45 @@
       center: [116.480983, 40.0958]
     });
 
-    //搜索地名的输入提示
+    //搜索地名的输入提示 Autocomplete 插件的参数
     var autoOptions = {
       input: "tipinput"
     };
 
+    // 加载 Autocomplete 插件
     var auto = new AMap.Autocomplete(autoOptions);
-    var placeSearch = new AMap.PlaceSearch({
-      map: map
-    }); //构造地点查询类
-    AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
-    function select(e) {
-      placeSearch.setCity(e.poi.adcode);
-      placeSearch.search(e.poi.name); //关键字查询查询
-    };
+    // var markers = [];
+    auto.search('天安门', function(status, result) {
+      // result.tips.forEach(function(location) {
+      //   markers.push(location)
+      //
+      // });
+      console.log(result.tips[0].location);
+      //根据 result.tips 里的地点来设置标记点
+      var marker = new AMap.Marker({
+        position: [result.tips[2].location.lng, result.tips[2].location.lat], //marker所在的位置
+        map: map //创建时直接赋予map属性
+      });
+      //也可以在创建完成后通过setMap方法执行地图对象
+      marker.setMap(map);
+    });
 
+    // var placeSearch = new AMap.PlaceSearch({
+    //   pageSize: 5,
+    //   pageIndex: 1,
+    //   city: "010", //城市
+    //   map: map,
+    //   panel: "panel"
+    // }); //构造地点查询类
+    // AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
+    // function select(e) {
+    //   placeSearch.setCity(e.poi.adcode);
+    //   placeSearch.search(e.poi.name); //关键字查询查询
+    //   // placeSearch.search('北京西站', function(status, result) {
+    //   //   //TODO : 按照自己需求处理查询结果
+    //   //   console.log(result);
+    //   // })
+    // };
   </script>
 </body>
 

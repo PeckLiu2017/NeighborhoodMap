@@ -93,6 +93,16 @@ html, body {
 	font-size: 12px;
 }
 
+#panel {
+    position: absolute;
+    background-color: white;
+    max-height: 90%;
+    overflow-y: auto;
+    top: 10px;
+    right: 10px;
+    width: 280px;
+}
+
 #myPageTop {
 	position: absolute;
 	top: 5px;
