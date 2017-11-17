@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="css/demos.css">
-  <title></title>
+  <title>Simple Map</title>
 </head>
 
 <body>
@@ -12,18 +12,83 @@
   <script src="js/jquery.js"></script>
   <script>
     var map;
+    var markers = [];
+
     function initMap() {
       // Create a map object and specify the DOM element for display.
-        map = new google.maps.Map(document.getElementById('map'), {
+      map = new google.maps.Map(document.getElementById('map'), {
         center: {
           lat: 40.7413549,
           lng: -73.9980244
         },
-        zoom: 8
+        zoom: 13
       });
+
+      var locations = [
+        {title:'Bondi Beach', location:{lat:-33.890542, lng:151.274856}},
+        {title:'Coogee Beach', location:{lat:-33.923036, lng:151.259052}},
+        {title:'Cronulla Beach', location:{lat:-34.028249, lng:151.157507}},
+        {title:'Manly Beach', location:{lat:-33.80010128657071, lng:151.28747820854187}},
+        {title:'Maroubra Beach', location:{lat:-33.950198, lng:151.259302}}
+      ];
+
+      var contentString = 'whatever';
+      var largeInfowindow = new google.maps.InfoWindow();
+      var bounds = new google.maps.LatLngBounds();
+
+      for (var i = 0; i < locations.length; i++) {
+        var position = locations[i].location;
+        var title = locations[i].title;
+        var marker = new google.maps.Marker({
+          position: position,
+          map: map,
+          title: title,
+          animation: google.maps.Animation.DROP,
+          id: i
+        });
+        // Push the marker to our array of markers
+        markers.push(markers);
+        // Extend the boundaries of the map for each marker
+        bounds.extend(marker.position);
+        // Create an onclick event to open an infowindow at each marker
+        marker.addListener('click', function() {
+          populateInfowindow(this,largeInfowindow);
+        });
+        map.fitBounds(bounds);
+      }
+
+
+
+      function populateInfowindow(marker,infowindow) {
+        if (infowindow.marker != marker) {
+          infowindow.marker = marker;
+          infowindow.setContent('<div>' + marker.title + '</div>');
+          infowindow.open(map, marker);
+          // infowindow.addListener('closeclick',function () {
+          //   infowindow.setMarker(null);
+          // });
+        }
+      }
+
+      var tribeca = {
+        lat: 40.719526,
+        lng: -74.0089934
+      };
+
+      var marker = new google.maps.Marker({
+        position: tribeca,
+        map: map,
+        title: 'First Marker!'
+      });
+
+
+
     }
   </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&callback=initMap"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&v=3&callback=initMap">
+  </script>
+
+  <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&v=3&callback=initMap"></script> -->
 </body>
 
 </html>
