@@ -143,19 +143,25 @@
 
       // Create a map object and specify the DOM element for display.
       map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 40.7413549, lng: -73.9980244},
+        // center: {lat: 40.7413549, lng: -73.9980244},
+        center: {lat: 31.8390, lng: 117.2576},
         styles: styles,
         mapTypeControl:false,
         zoom: 13
       });
 
       var locations = [
-        {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-        {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-        {title: 'Cronulla Beach', location: {lat: 40.7347062, lng: -73.9895759}},
-        {title: 'Manly Beach', location: {lat: 40.7281777, lng: -73.984377}},
-        {title: 'Maroubra Beach', location: {lat: 40.7195264, lng: -74.0089934}},
-        {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+        {title: 'Changlai Restaurant', location: {lat: 31.845459, lng: 117.26037300000007}},
+        {title: 'Huoshan Local Restaurant', location: {lat: 31.831503, lng: 117.24043800000004}},
+        {title: 'Baihui Northeast Flavor Restaurant', location: {lat: 31.8553502, lng: 117.25347499999998}},
+        {title: 'Huizhou Local Restaurant', location: {lat: 31.8487381, lng: 117.24070299999994}},
+        {title: 'University of Science and Technology of China West Campus', location: {lat: 31.838975, lng: 117.25759100000005}},
+        {title: 'Anhui University', location: {lat: 31.84441899999999, lng: 117.25433099999998}},
+        {title: 'Science Museum', location: {lat: 31.841994, lng: 117.24920700000007}},
+        {title: 'Art Museum', location: {lat: 31.843829, lng: 117.29179899999997}},
+        {title: 'Shushan Teenagers Activity Center', location: {lat: 31.856304, lng: 117.259502}},
+        {title: 'Hefei Library', location: {lat: 31.872774, lng: 117.26908200000003}},
+        {title: 'Anhui Agricultural University Library', location: {lat: 31.858886, lng: 117.25879399999997}},
       ];
 
       // Create infowindow
