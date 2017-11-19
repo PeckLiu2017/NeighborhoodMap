@@ -11,6 +11,11 @@
   <div class="container">
     <div class="search-box">
       <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
+      <div id="right-panel">
+        <h2>Results</h2>
+        <ul id="places"></ul>
+        <button id="more">More results</button>
+      </div>
       <div class="options-box">
         <h1>Find Your New NYC Home</h1>
         <div>
@@ -161,19 +166,19 @@
         {title: 'Art Museum', location: {lat: 31.843829, lng: 117.29179899999997}},
         {title: 'Shushan Teenagers Activity Center', location: {lat: 31.856304, lng: 117.259502}},
         {title: 'Hefei Library', location: {lat: 31.872774, lng: 117.26908200000003}},
-        {title: 'Anhui Agricultural University Library', location: {lat: 31.858886, lng: 117.25879399999997}},
+        // {title: 'Anhui Agricultural University Library', location: {lat: 31.858886, lng: 117.25879399999997}},
       ];
 
       // Create infowindow
       var largeInfowindow = new google.maps.InfoWindow();
 
       // Places search
-      // var service = new google.maps.places.PlacesService(map);
-      // service.nearbySearch({
-      //   location: pyrmont,
-      //   radius: 500,
-      //   type: ['store']
-      // }, callback);
+      var service = new google.maps.places.PlacesService(map);
+      service.nearbySearch({
+        location: locations[0].location,
+        radius: 500,
+        type: ['Art Museum','Library','University','Restaurant']
+      }, processResults);
 
 
       // Style the markers a bit. This will be our listing marker icon.
@@ -182,29 +187,33 @@
       // Create a "highlighted location" marker color for when the user mouses on the marker
       var highlightedIcon = markMarkerIcon('FF0000');
 
-      for (var i = 0; i < locations.length; i++) {
-        var position = locations[i].location;
-        var title = locations[i].title;
-        // Create a marker per location, and put into markers array
-        var marker = new google.maps.Marker({
-          position: position,
-          title: title,
-          icon: defaultIcon,
-          animation: google.maps.Animation.DROP,
-          id: i
-        });
-        // Push the marker to our array of markers
-        markers.push(marker);
-        // Create an onclick event to open an infowindow at each marker
-        marker.addListener('click', function() {
-          populateInfowindow(this,largeInfowindow);
-        });
-        marker.addListener('mouseover', function() {
-          this.setIcon(highlightedIcon);
-        });
-        marker.addListener('mouseout', function() {
-          this.setIcon(defaultIcon);
-        });
+      function createMarkers(places) {
+        var placesList = document.getElementById('places');
+        for (var i = 0; i < locations.length; i++) {
+          var position = locations[i].location;
+          var title = locations[i].title;
+          // Create a marker per location, and put into markers array
+          var marker = new google.maps.Marker({
+            position: position,
+            title: title,
+            icon: defaultIcon,
+            animation: google.maps.Animation.DROP,
+            id: i
+          });
+          placesList.innerHTML += '<li>' + locations[i].title + '</li>';
+          // Push the marker to our array of markers
+          markers.push(marker);
+          // Create an onclick event to open an infowindow at each marker
+          marker.addListener('click', function() {
+            populateInfowindow(this,largeInfowindow);
+          });
+          marker.addListener('mouseover', function() {
+            this.setIcon(highlightedIcon);
+          });
+          marker.addListener('mouseout', function() {
+            this.setIcon(defaultIcon);
+          });
+        }
       }
 
       document.getElementById('show-listings').addEventListener('click', showListings);
@@ -240,7 +249,7 @@
         }
       }
 
-      // marker animation
+      // marker Icon
       function markMarkerIcon(markerColor) {
         var markerImage = new google.maps.MarkerImage(
           'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
@@ -252,15 +261,18 @@
           return markerImage;
       }
 
+      function processResults(results, status, pagination) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
+          return;
+        } else {
+          console.log(111);
+          createMarkers(results);
+        }
+      }
+
     }
 
-    // function callback(results, status) {
-    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
-    //     for (var i = 0; i < results.length; i++) {
-    //       createMarker(results[i]);
-    //     }
-    //   }
-    // }
+
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&v=3&libraries=places&callback=initMap">
   </script>
