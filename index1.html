@@ -9,11 +9,14 @@
 
 <body>
   <div class="container">
-    <div class="options-box">
-      <h1>Find Your New NYC Home</h1>
-      <div>
-        <input id="show-listings" type="button" value="Show listings">
-        <input id="hide-listings" type="button" value="Hide listings">
+    <div class="search-box">
+      <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
+      <div class="options-box">
+        <h1>Find Your New NYC Home</h1>
+        <div>
+          <input id="show-listings" type="button" value="Show listings">
+          <input id="hide-listings" type="button" value="Hide listings">
+        </div>
       </div>
     </div>
     <div id="map"></div>
@@ -155,13 +158,23 @@
         {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
       ];
 
+      // Create infowindow
       var largeInfowindow = new google.maps.InfoWindow();
+
+      // Places search
+      // var service = new google.maps.places.PlacesService(map);
+      // service.nearbySearch({
+      //   location: pyrmont,
+      //   radius: 500,
+      //   type: ['store']
+      // }, callback);
+
 
       // Style the markers a bit. This will be our listing marker icon.
       var defaultIcon = markMarkerIcon('0091ff');
 
       // Create a "highlighted location" marker color for when the user mouses on the marker
-      var highlightedIcon = markMarkerIcon('FFFF24');
+      var highlightedIcon = markMarkerIcon('FF0000');
 
       for (var i = 0; i < locations.length; i++) {
         var position = locations[i].location;
@@ -221,6 +234,7 @@
         }
       }
 
+      // marker animation
       function markMarkerIcon(markerColor) {
         var markerImage = new google.maps.MarkerImage(
           'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +
@@ -233,8 +247,16 @@
       }
 
     }
+
+    // function callback(results, status) {
+    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //     for (var i = 0; i < results.length; i++) {
+    //       createMarker(results[i]);
+    //     }
+    //   }
+    // }
   </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&v=3&callback=initMap">
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&v=3&libraries=places&callback=initMap">
   </script>
 </body>
 
