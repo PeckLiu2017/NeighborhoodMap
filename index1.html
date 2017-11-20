@@ -264,6 +264,19 @@
             placesToBeFilter[i].style.display = "none";
           }
         }
+        filterMarker();
+      }
+
+      // Filter Places according to filter input field
+      function filterMarker() {
+        var filterInput = document.getElementById('search-input');
+        for (i = 0; i < markers.length; i++) {
+          if (markers[i].title.toUpperCase().indexOf(filterInput.value.toUpperCase()) > -1) {
+            markers[i].setMap(map);
+          } else {
+            markers[i].setMap(null);
+          }
+        }
       }
 
       // marker Icon
@@ -282,7 +295,6 @@
         if (status !== google.maps.places.PlacesServiceStatus.OK) {
           return;
         } else {
-          console.log(111);
           createMarkers(results);
         }
       }
