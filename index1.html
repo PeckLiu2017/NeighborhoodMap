@@ -11,11 +11,7 @@
   <div class="container">
     <div class="search-box">
       <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
-      <div id="right-panel">
-        <h2>Results</h2>
-        <ul id="places"></ul>
-        <button id="more">More results</button>
-      </div>
+      <ul id="places"></ul>
       <div class="options-box">
         <h1>Find Your New NYC Home</h1>
         <div>
@@ -188,18 +184,22 @@
       var highlightedIcon = markMarkerIcon('FF0000');
 
       function createMarkers(places) {
+        // Extend the boundaries of the map for each marker and display the marker
+        var bounds = new google.maps.LatLngBounds();
         var placesList = document.getElementById('places');
         for (var i = 0; i < locations.length; i++) {
           var position = locations[i].location;
           var title = locations[i].title;
           // Create a marker per location, and put into markers array
           var marker = new google.maps.Marker({
+            map: map,
             position: position,
             title: title,
             icon: defaultIcon,
             animation: google.maps.Animation.DROP,
             id: i
           });
+          // marker.setMap(map);
           placesList.innerHTML += '<li>' + locations[i].title + '</li>';
           // Push the marker to our array of markers
           markers.push(marker);
@@ -213,11 +213,14 @@
           marker.addListener('mouseout', function() {
             this.setIcon(defaultIcon);
           });
+          bounds.extend(marker.position);
         }
+        map.fitBounds(bounds);
       }
 
       document.getElementById('show-listings').addEventListener('click', showListings);
       document.getElementById('hide-listings').addEventListener('click', hideListings);
+      document.getElementById('search-input').addEventListener('keyup', filterPlace);
 
       // This function populate the infowindow when the marker is clicked. We will only allow
       // one infowindow which will open at the marker that is clicked, and populate based
@@ -246,6 +249,20 @@
       function hideListings() {
         for (var i = 0; i < markers.length; i++) {
           markers[i].setMap(null);
+        }
+      }
+
+      // Filter Places according to filter input field
+      function filterPlace() {
+        var filterInput = document.getElementById('search-input');
+        var placesList = document.getElementById('places');
+        var placesToBeFilter = placesList.getElementsByTagName("li");
+        for (i = 0; i < placesToBeFilter.length; i++) {
+          if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.value.toUpperCase()) > -1) {
+            placesToBeFilter[i].style.display = "";
+          } else {
+            placesToBeFilter[i].style.display = "none";
+          }
         }
       }
 
