@@ -13,10 +13,9 @@
   <span class="open-side-panel" onclick="openNav()"> ☰ </span>
 
     <div id="mySidenav" class="sidenav">
-        <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
         <div class="searchbox">
           <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
-          <span class="glyphicon glyphicon-remove"></span>
+          <span id="clear-search" class="glyphicon glyphicon-remove"></span>
           <div class="clear"></div>
         </div>
         <ul id="places"></ul>
@@ -244,6 +243,16 @@
       // document.getElementById('hide-listings').addEventListener('click', hideListings);
       document.getElementById('search-input').addEventListener('keyup', filterPlace);
 
+      document.getElementById('clear-search').addEventListener('click', resetMarkersToDefault);
+
+      function resetMarkersToDefault() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setIcon(null);
+          markers[i].setMap(map);
+        }
+        largeInfowindow.open(null, null);;
+      }
+
       // This function populate the infowindow when the marker is clicked. We will only allow
       // one infowindow which will open at the marker that is clicked, and populate based
       // on that markers position
@@ -352,9 +361,6 @@
       // Click animations on playlist
       // var placesList = document.getElementById('places');
       placesList.addEventListener('click',function (e) {
-        console.log(this);
-        console.log(e.target);
-
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].title == e.target.innerHTML) {
             markers[i].setMap(map);
