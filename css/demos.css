@@ -26,17 +26,19 @@ html, body {
   top: 0;
   left: 0;
   z-index: 2;
-
   background-color: #111; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+.sidenav #places {
+  padding: 0 1em;
+}
+
 .sidenav #places li {
-  padding: 8px 8px 8px 32px;
+  padding:  1em 0.4em;
   text-decoration: none;
-  font-size: 25px;
+  font-size: 14px;
   color: #818181;
   display: block;
   transition: 0.3s
