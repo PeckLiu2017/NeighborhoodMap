@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/demos.css">
   <title>Simple Map</title>
 </head>
@@ -12,8 +13,12 @@
   <span class="open-side-panel" onclick="openNav()"> ☰ </span>
 
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
+        <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+        <div class="searchbox">
+          <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
+          <span class="glyphicon glyphicon-remove"></span>
+          <div class="clear"></div>
+        </div>
         <ul id="places"></ul>
         <!-- <div class="options-box">
           <h1>Find Your New NYC Home</h1>

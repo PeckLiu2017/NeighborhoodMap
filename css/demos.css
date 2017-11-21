@@ -31,6 +31,54 @@ html, body {
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+.sidenav .searchbox{
+  padding: 0 1em;
+  background: #4387fd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+}
+
+.sidenav .searchbox .search-input {
+  float: left;
+  display: inline-block;
+  border-radius:5px;
+  border-radius:5px;
+  border: none;
+  padding: 0 0.4em;
+  margin: 1em 0 1em 1em;
+  line-height: 2.5em;
+  width: 90%;
+  outline:none;
+}
+
+.sidenav .searchbox span {
+  display: inline-block;
+  float: left;
+  background: white;
+  line-height: 2.5em;
+  margin: 1em 0;
+  width: 10%;
+  text-align: center;
+}
+
+.glyphicon {
+  position: absolute;
+  right: 10%;
+  top: 0;
+}
+
+.glyphicon-remove {
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+}
+
+.clear {
+  clear:both;/*主要使用这个属性来清除浮动*/
+  /*为了不让ie具有一定的空间，个人建议加上下面三个属性*/
+  height: 0;
+  line-height: 0;
+  font-size: 0;
+}
+
 .sidenav #places {
   padding: 0 1em;
 }
@@ -51,12 +99,6 @@ html, body {
   width: 100%;
   text-align: center;
 }*/
-
-.sidenav .search-input {
-  margin: 1.5em;
-  line-height: 3.5em;
-  width: 80%;
-}
 
 .sidenav .options-box {
   position: relative;
