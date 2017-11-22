@@ -39,7 +39,7 @@
         $('.close-panel-icon').css('visibility','hidden');
         $('#mySidenav').toggleClass('open');
         $('#toggle-side-panel').css('left','0');
-        $('#myPopup').toggleClass('panel-close');
+        $('#myPopup').toggleClass('panel-open');
       } else {
         $('.open-panel-icon').css('visibility','hidden');
         $('.close-panel-icon').css('visibility','visible');
@@ -219,7 +219,7 @@
       var largeInfowindow = new google.maps.InfoWindow();
 
       // Style the markers a bit. This will be our listing marker icon.
-      var defaultIcon = markMarkerIcon('0091ff');
+      var flagIcon = markMarkerIcon('0091ff');
 
       // Create a "highlighted location" marker color for when the user mouses on the marker
       var highlightedIcon = markMarkerIcon('FF0000');
@@ -228,6 +228,8 @@
         // Extend the boundaries of the map for each marker and display the marker
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < locations.length; i++) {
+          // marker.setMap(map);
+          placesList.innerHTML += '<li>' + locations[i].title + '</li>';
           var position = locations[i].location;
           var title = locations[i].title;
           // Create a marker per location, and put into markers array
@@ -235,12 +237,10 @@
             map: map,
             position: position,
             title: title,
-            // icon: defaultIcon,
+            // icon: flagIcon,
             animation: google.maps.Animation.DROP,
             id: i
           });
-          // marker.setMap(map);
-          placesList.innerHTML += '<li>' + locations[i].title + '</li>';
           // Push the marker to our array of markers
           markers.push(marker);
           // Create an onclick event to open an infowindow at each marker
@@ -248,7 +248,7 @@
             populateInfowindow(this,largeInfowindow);
           });
           marker.addListener('mouseover', function() {
-            this.setIcon(defaultIcon);
+            this.setIcon(flagIcon);
           });
           marker.addListener('mouseout', function() {
             this.setIcon(null);
@@ -385,7 +385,7 @@
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].title == e.target.innerHTML) {
             markers[i].setMap(map);
-            markers[i].setIcon(defaultIcon);
+            markers[i].setIcon(flagIcon);
             // markers[i].setAnimation(google.maps.Animation.BOUNCE);
             populateInfowindow(markers[i],largeInfowindow);
           } else {
