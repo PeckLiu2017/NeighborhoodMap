@@ -2,10 +2,13 @@ function initMap() {
 
   // Create a map object and specify the DOM element for display.
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.7413549, lng: -73.9980244},
+    center: {
+      lat: 40.7413549,
+      lng: -73.9980244
+    },
     // center: {lat: 31.8390, lng: 117.2576},
     styles: styles,
-    mapTypeControl:false,
+    mapTypeControl: false,
     zoom: 13
   });
 
@@ -36,7 +39,7 @@ function initMap() {
       markers.push(marker);
       // Create an onclick event to open an infowindow at each marker
       marker.addListener('click', function() {
-        populateInfowindow(this,largeInfowindow);
+        populateInfowindow(this, largeInfowindow);
       });
       marker.addListener('mouseover', function() {
         this.setIcon(flagIcon);
@@ -69,7 +72,7 @@ function initMap() {
   // This function populate the infowindow when the marker is clicked. We will only allow
   // one infowindow which will open at the marker that is clicked, and populate based
   // on that markers position
-  function populateInfowindow(marker,infowindow) {
+  function populateInfowindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
       // Clear the infowindow content to give the streetview time to load.
@@ -94,14 +97,14 @@ function initMap() {
           var nearStreetViewLocation = data.location.latLng;
           var heading = google.maps.geometry.spherical.computeHeading(
             nearStreetViewLocation, marker.position);
-            infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
-            var panoramaOptions = {
-              position: nearStreetViewLocation,
-              pov: {
-                heading: heading,
-                pitch: 30
-              }
-            };
+          infowindow.setContent('<div>' + marker.title + '</div><div id="pano"></div>');
+          var panoramaOptions = {
+            position: nearStreetViewLocation,
+            pov: {
+              heading: heading,
+              pitch: 30
+            }
+          };
           var panorama = new google.maps.StreetViewPanorama(
             document.getElementById('pano'), panoramaOptions);
         } else {
@@ -169,21 +172,31 @@ function initMap() {
       new google.maps.Point(0, 0),
       new google.maps.Point(10, 34),
       new google.maps.Size(21, 34));
-      return markerImage;
+    return markerImage;
   }
 
   // Click animations on playlist
   // var placesList = document.getElementById('places');
-  placesList.click(function (e) {
+  placesList.click(function(e) {
     for (var i = 0; i < markers.length; i++) {
       if (markers[i].title == e.target.innerHTML) {
         markers[i].setIcon(flagIcon);
         markers[i].setMap(map);
-        populateInfowindow(markers[i],largeInfowindow);
+        populateInfowindow(markers[i], largeInfowindow);
       } else {
         markers[i].setIcon(null);
         markers[i].setMap(null);
       }
     }
   });
+};
+
+let ViewModel = function() {
+  var self = this;
+  this.placesList = ko.observableArray([]);
+  locations.forEach(function(locationItem) {
+    self.placesList.push(new Location(locationItem));
+  });
 }
+
+ko.applyBindings(new ViewModel());

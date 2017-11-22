@@ -12,6 +12,7 @@ html, body {
   left: 0;
   padding: 1.8em 0.8em;
   background: white;
+  /*border: 1px solid #969393;*/
   z-index: 1;
   transition: 0.5s
 }

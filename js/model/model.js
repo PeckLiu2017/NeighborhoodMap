@@ -159,3 +159,8 @@ var styles = [
         stylers: [{color: '#92998d'}]
       }
     ];
+
+let Location = function (data) {
+  this.title = data.title;
+  this.location = data.location;
+}
