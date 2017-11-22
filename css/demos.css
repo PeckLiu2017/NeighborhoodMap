@@ -52,10 +52,6 @@ html, body {
   left: 130%;
 }
 
-/*#toggle-side-panel .map-loaded {
-  background: white;
-}*/
-
 #toggle-side-panel .show {
   visibility: visible;
 }
