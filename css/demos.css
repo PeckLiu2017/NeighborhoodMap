@@ -34,7 +34,7 @@ html, body {
   left: 40%;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent transparent #555;
+  border-color: transparent transparent transparent white;
 }
 
 #toggle-side-panel .popuptext {
@@ -52,6 +52,10 @@ html, body {
   left: 130%;
 }
 
+/*#toggle-side-panel .map-loaded {
+  background: white;
+}*/
+
 #toggle-side-panel .show {
   visibility: visible;
 }
@@ -60,8 +64,8 @@ html, body {
 #toggle-side-panel .popuptext::after {
   content: "";
   position: absolute;
-  top: 25%;
-  left: -7%;
+  top: 30%;
+  left: -6%;
   border-width: 5px;
   border-style: solid;
   border-color: transparent #555 transparent transparent;
@@ -99,7 +103,7 @@ html, body {
   border: none;
   padding: 0 0.4em;
   margin: 1em 0 1em 1em;
-  line-height: 2.5em;
+  line-height: 4.5em;
   width: 90%;
   outline:none;
 }
@@ -114,13 +118,10 @@ html, body {
   text-align: center;
 }
 
-.glyphicon {
+.glyphicon-remove {
   position: absolute;
   right: 10%;
   top: 0;
-}
-
-.glyphicon-remove {
   border-top-right-radius:5px;
   border-bottom-right-radius:5px;
 }

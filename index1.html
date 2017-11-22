@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/demos.css">
   <title>Simple Map</title>
 </head>
@@ -11,7 +10,7 @@
 <body>
   <!-- Use any element to open the sidenav -->
   <!-- <span class="open-side-panel" onclick="openNav()"> ☰ </span> -->
-  <div type="button" id="toggle-side-panel">
+  <div id="toggle-side-panel" class="hidden">
     <span class="open-panel-icon"></span>
     <span class="close-panel-icon"></span>
     <span class="popuptext" id="myPopup"></span>
@@ -21,7 +20,7 @@
 
       <div class="searchbox">
         <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
-        <span id="clear-search" class="glyphicon glyphicon-remove"></span>
+        <span id="clear-search" class="glyphicon glyphicon-remove">&times;</span>
         <div class="clear"></div>
       </div>
 
@@ -33,19 +32,21 @@
   <script src="js/jquery.js"></script>
   <script>
     /* Set the width of the side navigation to 250px */
-    $('#toggle-side-panel').click(function () {
-      if ($('#mySidenav').hasClass('open')) {
-        $('.open-panel-icon').css('visibility','visible');
-        $('.close-panel-icon').css('visibility','hidden');
-        $('#mySidenav').toggleClass('open');
-        $('#toggle-side-panel').css('left','0');
-        $('#myPopup').toggleClass('panel-open');
-      } else {
-        $('.open-panel-icon').css('visibility','hidden');
-        $('.close-panel-icon').css('visibility','visible');
-        $('#mySidenav').toggleClass('open');
-        $('#toggle-side-panel').css('left','25%');
-        $('#myPopup').toggleClass('panel-open');
+    $('#toggle-side-panel').click(function (e) {
+      if (e.target != $('#myPopup')[0]) {
+        if ($('#mySidenav').hasClass('open')) {
+          $('.open-panel-icon').css('visibility','visible');
+          $('.close-panel-icon').css('visibility','hidden');
+          $('#mySidenav').toggleClass('open');
+          $('#toggle-side-panel').css('left','0');
+          $('#myPopup').toggleClass('panel-open');
+        } else {
+          $('.open-panel-icon').css('visibility','hidden');
+          $('.close-panel-icon').css('visibility','visible');
+          $('#mySidenav').toggleClass('open');
+          $('#toggle-side-panel').css('left','25%');
+          $('#myPopup').toggleClass('panel-open');
+        }
       }
     });
 
@@ -192,6 +193,7 @@
         zoom: 13
       });
 
+      setTimeout("$('.open-panel-icon').css('borderColor','transparent transparent transparent #555')",1000)
       // var locations = [
       //   {title: 'Changlai Restaurant', location: {lat: 31.845459, lng: 117.26037300000007}},
       //   {title: 'Huoshan Local Restaurant', location: {lat: 31.831503, lng: 117.24043800000004}},
@@ -224,12 +226,14 @@
       // Create a "highlighted location" marker color for when the user mouses on the marker
       var highlightedIcon = markMarkerIcon('FF0000');
 
+      for (var i = 0; i < locations.length; i++) {
+        placesList.innerHTML += '<li>' + locations[i].title + '</li>';
+      }
+
       function createMarkers(places) {
         // Extend the boundaries of the map for each marker and display the marker
         var bounds = new google.maps.LatLngBounds();
         for (var i = 0; i < locations.length; i++) {
-          // marker.setMap(map);
-          placesList.innerHTML += '<li>' + locations[i].title + '</li>';
           var position = locations[i].location;
           var title = locations[i].title;
           // Create a marker per location, and put into markers array
@@ -237,7 +241,6 @@
             map: map,
             position: position,
             title: title,
-            // icon: flagIcon,
             animation: google.maps.Animation.DROP,
             id: i
           });
@@ -272,6 +275,7 @@
         }
         largeInfowindow.open(null, null);
         document.getElementById('search-input').value = '';
+        filterPlace();
       }
 
       // This function populate the infowindow when the marker is clicked. We will only allow
@@ -290,6 +294,7 @@
               markers[i].setMap(map);
             }
             infowindow.marker = null;
+            filterPlace();
           });
           var streetViewService = new google.maps.StreetViewService();
           var radius = 50;
@@ -371,7 +376,7 @@
       // marker Icon
       function markMarkerIcon(markerColor) {
         var markerImage = new google.maps.MarkerImage(
-          'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+          'image/beachflag.png',
           new google.maps.Size(31, 34),
           new google.maps.Point(0, 0),
           new google.maps.Point(10, 34),
@@ -384,8 +389,8 @@
       placesList.addEventListener('click',function (e) {
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].title == e.target.innerHTML) {
-            markers[i].setMap(map);
             markers[i].setIcon(flagIcon);
+            markers[i].setMap(map);
             // markers[i].setAnimation(google.maps.Animation.BOUNCE);
             populateInfowindow(markers[i],largeInfowindow);
           } else {
@@ -399,6 +404,9 @@
 
   </script>
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&libraries=geometry&v=3&callback=initMap">
+  </script>
+  <script>
+    $('#toggle-side-panel').toggleClass('map-loaded');
   </script>
 </body>
 
