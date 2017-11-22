@@ -1,5 +1,3 @@
-function initMap() {
-
   // Create a map object and specify the DOM element for display.
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
@@ -13,17 +11,14 @@ function initMap() {
   });
 
   // Create infowindow
-  var largeInfowindow = new google.maps.InfoWindow();
+  largeInfowindow = new google.maps.InfoWindow();
 
   // Style the markers a bit. This will be our listing marker icon.
-  var flagIcon = markMarkerIcon('0091ff');
-
-  // Create a "highlighted location" marker color for when the user mouses on the marker
-  var highlightedIcon = markMarkerIcon('FF0000');
+  flagIcon = markMarkerIcon('0091ff');
 
   function createMarkers(places) {
     // Extend the boundaries of the map for each marker and display the marker
-    var bounds = new google.maps.LatLngBounds();
+    bounds = new google.maps.LatLngBounds();
     for (var i = 0; i < locations.length; i++) {
       var position = locations[i].location;
       var title = locations[i].title;
@@ -189,7 +184,7 @@ function initMap() {
       }
     }
   });
-};
+
 
 let ViewModel = function() {
   var self = this;
@@ -197,6 +192,12 @@ let ViewModel = function() {
   locations.forEach(function(locationItem) {
     self.placesList.push(new Location(locationItem));
   });
+
+  // 这里的 clickedCat 是 with:currentCat 中的 cat
+  this.selectPlace = function (selectedPlace) {
+    console.log(selectedPlace.title);
+  };
+
 }
 
 ko.applyBindings(new ViewModel());

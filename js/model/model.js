@@ -2,6 +2,14 @@ var map;
 
 // Create a new blank array for all the listing markers
 var markers = [];
+// Create infowindow
+var largeInfowindow;
+// Style the markers a bit. This will be our selected marker icon.
+var flagIcon;
+// Extend the boundaries of the map for each marker and display the marker
+var bounds;
+
+var streetViewService;
 
 // Create default locations to be listed in places list
 var locations = [{
