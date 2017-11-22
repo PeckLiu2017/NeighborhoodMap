@@ -11,11 +11,11 @@
 <body>
   <!-- Use any element to open the sidenav -->
   <!-- <span class="open-side-panel" onclick="openNav()"> ☰ </span> -->
+  <div type="button" id="toggle-side-panel">
+    <span class="popuptext" id="myPopup"></span>
+  </div>
 
     <div id="mySidenav" class="sidenav">
-      <div type="button" id="toggle-side-panel" onclick="toggleNav()">
-        <span class="popuptext" id="myPopup"></span>
-      </div>
 
       <div class="searchbox">
         <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
@@ -24,13 +24,6 @@
       </div>
 
       <ul id="places"></ul>
-        <!-- <div class="options-box">
-          <h1>Find Your New NYC Home</h1>
-          <div>
-            <input id="show-listings" type="button" value="Show listings">
-            <input id="hide-listings" type="button" value="Hide listings">
-          </div>
-        </div> -->
     </div>
 
     <div id="map"></div>
@@ -38,34 +31,30 @@
   <script src="js/jquery.js"></script>
   <script>
     /* Set the width of the side navigation to 250px */
-    function toggleNav() {
-      if ($('#mySidenav').css('width') != '25%') {
-        console.log(typeof $('#mySidenav').css('width'));
-      }
-      if (document.getElementById("mySidenav").style.width != "25%" && document.getElementById("toggle-side-panel").style.left != "25%") {
-        document.getElementById("mySidenav").style.width = "25%";
-        document.getElementById("toggle-side-panel").style.left = "25%";
-        $('#myPopup').toggleClass('panel-open');
-      } else {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("toggle-side-panel").style.left = "0";
+    $('#toggle-side-panel').click(function () {
+      if ($('#mySidenav').hasClass('open')) {
+        $('#mySidenav').toggleClass('open');
+        $('#toggle-side-panel').css('left','0');
         $('#myPopup').toggleClass('panel-close');
+      } else {
+        $('#mySidenav').toggleClass('open');
+        $('#toggle-side-panel').css('left','25%');
+        $('#myPopup').toggleClass('panel-open');
       }
-    }
+    });
 
     $('#toggle-side-panel').hover(
       function () {
-        let popup = $('#myPopup');
-        if (popup.hasClass('panel-open')) {
-          popup.toggleClass('show').text('collapse search panel');
+        if ($('#myPopup').hasClass('panel-open')) {
+          $('#myPopup').toggleClass('show').text('collapse search panel');
         } else {
-          popup.toggleClass('show').text('Expand search panel');
+          $('#myPopup').toggleClass('show').text('Expand search panel');
         }
       },
       function () {
-        let popup = $('#myPopup');
-          popup.toggleClass('show');
-      });
+          $('#myPopup').toggleClass('show');
+      }
+    );
 
     var map;
 

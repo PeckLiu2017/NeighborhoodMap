@@ -60,6 +60,10 @@ html, body {
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
+.open {
+  width: 25%;
+}
+
 .sidenav .searchbox{
   padding: 0 1em;
   background: #4387fd;
