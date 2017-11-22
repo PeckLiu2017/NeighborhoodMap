@@ -170,11 +170,17 @@
     return markerImage;
   }
 
-  // Click animations on playlist
-  // var placesList = document.getElementById('places');
-  placesList.click(function(e) {
+let ViewModel = function() {
+  var self = this;
+  this.placesList = ko.observableArray([]);
+  locations.forEach(function(locationItem) {
+    self.placesList.push(new Location(locationItem));
+  });
+
+  // Click a place to change its marker icon ,see its streetview and other infos
+  this.selectPlace = function (selectedPlace) {
     for (var i = 0; i < markers.length; i++) {
-      if (markers[i].title == e.target.innerHTML) {
+      if (markers[i].title == selectedPlace.title) {
         markers[i].setIcon(flagIcon);
         markers[i].setMap(map);
         populateInfowindow(markers[i], largeInfowindow);
@@ -183,19 +189,6 @@
         markers[i].setMap(null);
       }
     }
-  });
-
-
-let ViewModel = function() {
-  var self = this;
-  this.placesList = ko.observableArray([]);
-  locations.forEach(function(locationItem) {
-    self.placesList.push(new Location(locationItem));
-  });
-
-  // 这里的 clickedCat 是 with:currentCat 中的 cat
-  this.selectPlace = function (selectedPlace) {
-    console.log(selectedPlace.title);
   };
 
 }
