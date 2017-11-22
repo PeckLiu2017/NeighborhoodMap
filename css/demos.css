@@ -16,6 +16,27 @@ html, body {
   transition: 0.5s
 }
 
+.close-panel-icon {
+  visibility: hidden;
+  content: "";
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #555 transparent transparent;
+}
+
+.open-panel-icon {
+  content: "";
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #555;
+}
+
 #toggle-side-panel .popuptext {
   visibility: hidden;
   width: 10em;

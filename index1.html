@@ -12,6 +12,8 @@
   <!-- Use any element to open the sidenav -->
   <!-- <span class="open-side-panel" onclick="openNav()"> ☰ </span> -->
   <div type="button" id="toggle-side-panel">
+    <span class="open-panel-icon"></span>
+    <span class="close-panel-icon"></span>
     <span class="popuptext" id="myPopup"></span>
   </div>
 
@@ -33,10 +35,14 @@
     /* Set the width of the side navigation to 250px */
     $('#toggle-side-panel').click(function () {
       if ($('#mySidenav').hasClass('open')) {
+        $('.open-panel-icon').css('visibility','visible');
+        $('.close-panel-icon').css('visibility','hidden');
         $('#mySidenav').toggleClass('open');
         $('#toggle-side-panel').css('left','0');
         $('#myPopup').toggleClass('panel-close');
       } else {
+        $('.open-panel-icon').css('visibility','hidden');
+        $('.close-panel-icon').css('visibility','visible');
         $('#mySidenav').toggleClass('open');
         $('#toggle-side-panel').css('left','25%');
         $('#myPopup').toggleClass('panel-open');
