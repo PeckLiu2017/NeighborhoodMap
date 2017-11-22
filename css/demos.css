@@ -5,22 +5,47 @@ html, body {
   padding: 0;
 }
 
-/*.container {
-  width: 100%;
-  height: 100%;
-}*/
-
 #toggle-side-panel{
-  border-radius:5px;
+  border-radius:2px;
   position: fixed;
   top: 2%;
   left: 0;
-  padding: 0.6em 0.3em;
+  padding: 1.8em 0.8em;
   background: white;
   z-index: 1;
-  font-size: 3em;
   transition: 0.5s
 }
+
+#toggle-side-panel .popuptext {
+  visibility: hidden;
+  width: 10em;
+  line-height: 100%;
+  background-color: #555;
+  color: #fff;
+  text-align: left;
+  border-radius: 2px;
+  padding: 6px 2px;
+  position: absolute;
+  z-index: 1;
+  bottom: 25%;
+  left: 130%;
+}
+
+#toggle-side-panel .show {
+  visibility: visible;
+}
+
+/* Popup arrow */
+#toggle-side-panel .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 25%;
+  left: -7%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #555 transparent transparent;
+}
+
 
 /* The side navigation menu */
 .sidenav {
@@ -95,14 +120,6 @@ html, body {
   display: block;
   transition: 0.3s
 }
-
-
-/*.sidenav .search-box {
-  position: relative;
-  float: left;
-  width: 100%;
-  text-align: center;
-}*/
 
 .sidenav .options-box {
   position: relative;

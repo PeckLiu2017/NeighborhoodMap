@@ -13,13 +13,17 @@
   <!-- <span class="open-side-panel" onclick="openNav()"> ☰ </span> -->
 
     <div id="mySidenav" class="sidenav">
-      <span type="button" id="toggle-side-panel" onclick="toggleNav()"></span>
-        <div class="searchbox">
-          <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
-          <span id="clear-search" class="glyphicon glyphicon-remove"></span>
-          <div class="clear"></div>
-        </div>
-        <ul id="places"></ul>
+      <div type="button" id="toggle-side-panel" onclick="toggleNav()">
+        <span class="popuptext" id="myPopup"></span>
+      </div>
+
+      <div class="searchbox">
+        <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
+        <span id="clear-search" class="glyphicon glyphicon-remove"></span>
+        <div class="clear"></div>
+      </div>
+
+      <ul id="places"></ul>
         <!-- <div class="options-box">
           <h1>Find Your New NYC Home</h1>
           <div>
@@ -35,14 +39,33 @@
   <script>
     /* Set the width of the side navigation to 250px */
     function toggleNav() {
+      if ($('#mySidenav').css('width') != '25%') {
+        console.log(typeof $('#mySidenav').css('width'));
+      }
       if (document.getElementById("mySidenav").style.width != "25%" && document.getElementById("toggle-side-panel").style.left != "25%") {
         document.getElementById("mySidenav").style.width = "25%";
         document.getElementById("toggle-side-panel").style.left = "25%";
+        $('#myPopup').toggleClass('panel-open');
       } else {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("toggle-side-panel").style.left = "0";
+        $('#myPopup').toggleClass('panel-close');
       }
     }
+
+    $('#toggle-side-panel').hover(
+      function () {
+        let popup = $('#myPopup');
+        if (popup.hasClass('panel-open')) {
+          popup.toggleClass('show').text('collapse search panel');
+        } else {
+          popup.toggleClass('show').text('Expand search panel');
+        }
+      },
+      function () {
+        let popup = $('#myPopup');
+          popup.toggleClass('show');
+      });
 
     var map;
 
