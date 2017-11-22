@@ -10,9 +10,10 @@
 
 <body>
   <!-- Use any element to open the sidenav -->
-  <span class="open-side-panel" onclick="openNav()"> ☰ </span>
+  <!-- <span class="open-side-panel" onclick="openNav()"> ☰ </span> -->
 
     <div id="mySidenav" class="sidenav">
+      <span type="button" id="toggle-side-panel" onclick="toggleNav()"></span>
         <div class="searchbox">
           <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
           <span id="clear-search" class="glyphicon glyphicon-remove"></span>
@@ -33,13 +34,14 @@
   <script src="js/jquery.js"></script>
   <script>
     /* Set the width of the side navigation to 250px */
-    function openNav() {
+    function toggleNav() {
+      if (document.getElementById("mySidenav").style.width != "25%" && document.getElementById("toggle-side-panel").style.left != "25%") {
         document.getElementById("mySidenav").style.width = "25%";
-    }
-
-    /* Set the width of the side navigation to 0 */
-    function closeNav() {
+        document.getElementById("toggle-side-panel").style.left = "25%";
+      } else {
         document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("toggle-side-panel").style.left = "0";
+      }
     }
 
     var map;
@@ -250,7 +252,8 @@
           markers[i].setIcon(null);
           markers[i].setMap(map);
         }
-        largeInfowindow.open(null, null);;
+        largeInfowindow.open(null, null);
+        document.getElementById('search-input').value = '';
       }
 
       // This function populate the infowindow when the marker is clicked. We will only allow

@@ -10,12 +10,16 @@ html, body {
   height: 100%;
 }*/
 
-.open-side-panel{
+#toggle-side-panel{
+  border-radius:5px;
   position: fixed;
   top: 2%;
-  left: 2%;
+  left: 0;
+  padding: 0.6em 0.3em;
+  background: white;
   z-index: 1;
   font-size: 3em;
+  transition: 0.5s
 }
 
 /* The side navigation menu */
