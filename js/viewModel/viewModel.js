@@ -147,18 +147,6 @@
   //   filterMarker();
   // }
 
-  // Filter Markers according to filter input field
-  function filterMarker() {
-    var filterInput = $('.search-input').get(0);
-    for (i = 0; i < markers.length; i++) {
-      if (markers[i].title.toUpperCase().indexOf(filterInput.value.toUpperCase()) > -1) {
-        markers[i].setMap(map);
-      } else {
-        markers[i].setMap(null);
-      }
-    }
-  }
-
   // marker Icon
   function markMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
@@ -218,7 +206,19 @@ let ViewModel = function() {
         placesToBeFilter[i].style.display = "none";
       }
     }
-    // filterMarker();
+    this.filterMarker();
+  }
+
+  // Filter Markers according to filter input field
+  this.filterMarker = function () {
+    var filterInput = self.searchInput();
+    for (i = 0; i < markers.length; i++) {
+      if (markers[i].title.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
+        markers[i].setMap(map);
+      } else {
+        markers[i].setMap(null);
+      }
+    }
   }
 
 
