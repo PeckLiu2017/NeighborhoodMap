@@ -1,5 +1,5 @@
   // Create a map object and specify the DOM element for display.
-  map = new google.maps.Map(document.getElementById('map'), {
+  var map = new google.maps.Map(document.getElementById('map'), {
     center: {
       lat: 40.7413549,
       lng: -73.9980244
@@ -10,44 +10,17 @@
     zoom: 13
   });
 
+  // Create a new blank array for all the listing markers
+  var markers = [];
+
   // Create infowindow
-  largeInfowindow = new google.maps.InfoWindow();
+  var largeInfowindow = new google.maps.InfoWindow();
 
   // Style the markers a bit. This will be our listing marker icon.
-  flagIcon = markMarkerIcon('0091ff');
+  var flagIcon = markMarkerIcon('0091ff');
 
-  function createMarkers(places) {
-    // Extend the boundaries of the map for each marker and display the marker
-    bounds = new google.maps.LatLngBounds();
-    for (var i = 0; i < locations.length; i++) {
-      var position = locations[i].location;
-      var title = locations[i].title;
-      // Create a marker per location, and put into markers array
-      var marker = new google.maps.Marker({
-        map: map,
-        position: position,
-        title: title,
-        animation: google.maps.Animation.DROP,
-        id: i
-      });
-      // Push the marker to our array of markers
-      markers.push(marker);
-      // Create an onclick event to open an infowindow at each marker
-      marker.addListener('click', function() {
-        populateInfowindow(this, largeInfowindow);
-      });
-      marker.addListener('mouseover', function() {
-        this.setIcon(flagIcon);
-      });
-      marker.addListener('mouseout', function() {
-        this.setIcon(null);
-      });
-      bounds.extend(marker.position);
-    }
-    map.fitBounds(bounds);
-  }
 
-  createMarkers(locations);
+  // createMarkers(locations);
   // document.getElementById('show-listings').addEventListener('click', showListings);
   // document.getElementById('hide-listings').addEventListener('click', hideListings);
   // document.getElementById('search-input').addEventListener('keyup', filterPlace);
@@ -61,7 +34,7 @@
     }
     largeInfowindow.open(null, null);
     $('.search-input').val('');
-    // filterPlace();
+    filterPlace();
   }
 
   // This function populate the infowindow when the marker is clicked. We will only allow
@@ -134,19 +107,6 @@
     }
   }
 
-  // Filter Places according to filter input field
-  // function filterPlace() {
-  //   var filterInput = $('.search-input').get(0);
-  //   for (i = 0; i < placesToBeFilter.length; i++) {
-  //     if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.value.toUpperCase()) > -1) {
-  //       placesToBeFilter[i].style.display = "";
-  //     } else {
-  //       placesToBeFilter[i].style.display = "none";
-  //     }
-  //   }
-  //   filterMarker();
-  // }
-
   // marker Icon
   function markMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
@@ -165,7 +125,40 @@ let ViewModel = function() {
     self.placesList.push(new Location(locationItem));
   });
 
-  this.searchInput = ko.observable('');
+  // Create markers when initialize the app
+  this.createMarkers = function (places) {
+    // Extend the boundaries of the map for each marker and display the marker
+    var bounds = new google.maps.LatLngBounds();
+    for (var i = 0; i < locations.length; i++) {
+      var position = locations[i].location;
+      var title = locations[i].title;
+      // Create a marker per location, and put into markers array
+      var marker = new google.maps.Marker({
+        map: map,
+        position: position,
+        title: title,
+        animation: google.maps.Animation.DROP,
+        id: i
+      });
+      // Push the marker to our array of markers
+      markers.push(marker);
+      // Create an onclick event to open an infowindow at each marker
+      marker.addListener('click', function() {
+        populateInfowindow(this, largeInfowindow);
+      });
+      marker.addListener('mouseover', function() {
+        this.setIcon(flagIcon);
+      });
+      marker.addListener('mouseout', function() {
+        this.setIcon(null);
+      });
+      bounds.extend(marker.position);
+    }
+    map.fitBounds(bounds);
+  }
+
+  this.createMarkers();
+
   // Click a place to change its marker icon ,see its streetview and other infos
   this.selectPlace = function (selectedPlace) {
     for (var i = 0; i < markers.length; i++) {
@@ -180,22 +173,10 @@ let ViewModel = function() {
     }
   };
 
-  // $('.search-input').keyup(function () {
-  //   var filterInput = self.searchInput();
-  //   console.log(self.searchInput());
-  //   var placesToBeFilter = $('#places').find('li');
-  //   for (i = 0; i < placesToBeFilter.length; i++) {
-  //     console.log(222);
-  //     if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
-  //       console.log(placesToBeFilter[i]);
-  //       placesToBeFilter[i].style.display = "";
-  //     } else {
-  //       placesToBeFilter[i].style.display = "none";
-  //     }
-  //   }
-  //
-  // });
 
+  this.searchInput = ko.observable('');
+
+  // Filter place in the palcelists
   self.filterPlace = function () {
     var filterInput = self.searchInput();
     var placesToBeFilter = $('#places').find('li');
