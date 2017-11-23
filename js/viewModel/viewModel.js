@@ -50,7 +50,7 @@
   createMarkers(locations);
   // document.getElementById('show-listings').addEventListener('click', showListings);
   // document.getElementById('hide-listings').addEventListener('click', hideListings);
-  document.getElementById('search-input').addEventListener('keyup', filterPlace);
+  // document.getElementById('search-input').addEventListener('keyup', filterPlace);
 
   document.getElementById('clear-search').addEventListener('click', resetMarkersToDefault);
 
@@ -60,7 +60,7 @@
       markers[i].setMap(map);
     }
     largeInfowindow.open(null, null);
-    document.getElementById('search-input').value = '';
+    $('.search-input').val('');
     filterPlace();
   }
 
@@ -136,7 +136,7 @@
 
   // Filter Places according to filter input field
   function filterPlace() {
-    var filterInput = document.getElementById('search-input');
+    var filterInput = $('.search-input').get(0);
     for (i = 0; i < placesToBeFilter.length; i++) {
       if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.value.toUpperCase()) > -1) {
         placesToBeFilter[i].style.display = "";
@@ -149,7 +149,7 @@
 
   // Filter Markers according to filter input field
   function filterMarker() {
-    var filterInput = document.getElementById('search-input');
+    var filterInput = $('.search-input').get(0);
     for (i = 0; i < markers.length; i++) {
       if (markers[i].title.toUpperCase().indexOf(filterInput.value.toUpperCase()) > -1) {
         markers[i].setMap(map);

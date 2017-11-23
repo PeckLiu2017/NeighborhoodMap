@@ -19,14 +19,14 @@
     <div id="mySidenav" class="sidenav">
 
       <div class="searchbox">
-        <input id="search-input" class="search-input" type="text" placeholder="Search Google Maps">
+        <input class="search-input" type="text" placeholder="Search Google Maps">
         <span id="clear-search" class="glyphicon glyphicon-remove">&times;</span>
         <div class="clear"></div>
       </div>
 
       <!-- <ul id="places"></ul> -->
       <ul data-bind="foreach: placesList" id="places">
-        <li data-bind="text: title, click: $parent.selectPlace, keyup: $parent.filterPlace"></li>
+        <li data-bind="text: title, click: $parent.selectPlace"></li>
       </ul>
     </div>
 
