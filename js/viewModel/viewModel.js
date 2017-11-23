@@ -192,25 +192,9 @@ let ViewModel = function() {
     }
   };
 
-  $('.search-input').keyup(function () {
-    var filterInput = self.searchInput();
-    console.log(self.searchInput());
-    var placesToBeFilter = $('#places').find('li');
-    for (i = 0; i < placesToBeFilter.length; i++) {
-      console.log(222);
-      if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
-        console.log(placesToBeFilter[i]);
-        placesToBeFilter[i].style.display = "";
-      } else {
-        placesToBeFilter[i].style.display = "none";
-      }
-    }
-
-  });
-
-  // self.filterPlace = function () {
+  // $('.search-input').keyup(function () {
   //   var filterInput = self.searchInput();
-  //   console.log(filterInput);
+  //   console.log(self.searchInput());
   //   var placesToBeFilter = $('#places').find('li');
   //   for (i = 0; i < placesToBeFilter.length; i++) {
   //     console.log(222);
@@ -221,8 +205,21 @@ let ViewModel = function() {
   //       placesToBeFilter[i].style.display = "none";
   //     }
   //   }
-  //   // filterMarker();
-  // }
+  //
+  // });
+
+  self.filterPlace = function () {
+    var filterInput = self.searchInput();
+    var placesToBeFilter = $('#places').find('li');
+    for (i = 0; i < placesToBeFilter.length; i++) {
+      if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
+        placesToBeFilter[i].style.display = "";
+      } else {
+        placesToBeFilter[i].style.display = "none";
+      }
+    }
+    // filterMarker();
+  }
 
 
 }
