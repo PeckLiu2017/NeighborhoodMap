@@ -35,7 +35,7 @@ html, body {
   left: 40%;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent transparent white;
+  border-color: transparent transparent transparent #555;
 }
 
 #toggle-side-panel .popuptext {
@@ -131,11 +131,11 @@ html, body {
   font-size: 0;
 }
 
-.sidenav #places {
+.sidenav .places {
   padding: 0 1em;
 }
 
-.sidenav #places li {
+.sidenav .places li {
   padding:  1em 0.4em;
   text-decoration: none;
   font-size: 14px;

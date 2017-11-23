@@ -1,6 +1,3 @@
-// get placesList container made by html ul element and its items container made by html li element
-let placesList = $('#places');
-let placesToBeFilter = placesList.find('li');
 /* Set the width of the side navigation to 25% of the whole page */
 $('#toggle-side-panel').click(function (e) {
   if (e.target != $('#myPopup')[0]) {
@@ -32,5 +29,3 @@ $('#toggle-side-panel').hover(
       $('#myPopup').toggleClass('show');
   }
 );
-
-setTimeout("$('.open-panel-icon').css('borderColor','transparent transparent transparent #555')",1500);

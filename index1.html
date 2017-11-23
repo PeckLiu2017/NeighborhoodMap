@@ -25,14 +25,14 @@
       </div>
 
       <!-- <ul id="places"></ul> -->
-      <ul data-bind="foreach: placesList" id="places">
+      <ul data-bind="foreach: placesList" class="places">
         <li data-bind="text: title, click: $parent.selectPlace"></li>
       </ul>
     </div>
 
     <div id="map"></div>
   <!-- </div> -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&libraries=geometry&v=3"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&libraries=geometry&v=3&callback=initMap" async defer></script>
   <script src="js/knockout/knockout-3.2.0.js"></script>
   <script src="js/jquery/jquery.js"></script>
   <script src="js/model/model.js"></script>
