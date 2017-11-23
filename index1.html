@@ -19,7 +19,7 @@
     <div id="mySidenav" class="sidenav">
 
       <div class="searchbox">
-        <input class="search-input" type="text" placeholder="Search Google Maps">
+        <input data-bind="value: searchInput,valueUpdate : 'afterkeydown'" class="search-input" placeholder="Search Google Maps">
         <span id="clear-search" class="glyphicon glyphicon-remove">&times;</span>
         <div class="clear"></div>
       </div>

@@ -61,7 +61,7 @@
     }
     largeInfowindow.open(null, null);
     $('.search-input').val('');
-    filterPlace();
+    // filterPlace();
   }
 
   // This function populate the infowindow when the marker is clicked. We will only allow
@@ -80,7 +80,7 @@
           markers[i].setMap(map);
         }
         infowindow.marker = null;
-        filterPlace();
+        // filterPlace();
       });
       var streetViewService = new google.maps.StreetViewService();
       var radius = 50;
@@ -135,17 +135,17 @@
   }
 
   // Filter Places according to filter input field
-  function filterPlace() {
-    var filterInput = $('.search-input').get(0);
-    for (i = 0; i < placesToBeFilter.length; i++) {
-      if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.value.toUpperCase()) > -1) {
-        placesToBeFilter[i].style.display = "";
-      } else {
-        placesToBeFilter[i].style.display = "none";
-      }
-    }
-    filterMarker();
-  }
+  // function filterPlace() {
+  //   var filterInput = $('.search-input').get(0);
+  //   for (i = 0; i < placesToBeFilter.length; i++) {
+  //     if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.value.toUpperCase()) > -1) {
+  //       placesToBeFilter[i].style.display = "";
+  //     } else {
+  //       placesToBeFilter[i].style.display = "none";
+  //     }
+  //   }
+  //   filterMarker();
+  // }
 
   // Filter Markers according to filter input field
   function filterMarker() {
@@ -177,6 +177,7 @@ let ViewModel = function() {
     self.placesList.push(new Location(locationItem));
   });
 
+  this.searchInput = ko.observable('');
   // Click a place to change its marker icon ,see its streetview and other infos
   this.selectPlace = function (selectedPlace) {
     for (var i = 0; i < markers.length; i++) {
@@ -190,6 +191,39 @@ let ViewModel = function() {
       }
     }
   };
+
+  $('.search-input').keyup(function () {
+    var filterInput = self.searchInput();
+    console.log(self.searchInput());
+    var placesToBeFilter = $('#places').find('li');
+    for (i = 0; i < placesToBeFilter.length; i++) {
+      console.log(222);
+      if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
+        console.log(placesToBeFilter[i]);
+        placesToBeFilter[i].style.display = "";
+      } else {
+        placesToBeFilter[i].style.display = "none";
+      }
+    }
+
+  });
+
+  // self.filterPlace = function () {
+  //   var filterInput = self.searchInput();
+  //   console.log(filterInput);
+  //   var placesToBeFilter = $('#places').find('li');
+  //   for (i = 0; i < placesToBeFilter.length; i++) {
+  //     console.log(222);
+  //     if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
+  //       console.log(placesToBeFilter[i]);
+  //       placesToBeFilter[i].style.display = "";
+  //     } else {
+  //       placesToBeFilter[i].style.display = "none";
+  //     }
+  //   }
+  //   // filterMarker();
+  // }
+
 
 }
 
