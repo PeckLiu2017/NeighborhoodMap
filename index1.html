@@ -20,7 +20,7 @@
 
       <div class="searchbox">
         <input data-bind="value: searchInput,valueUpdate : 'afterkeydown',event: { 'keyup': filterPlace }" class="search-input" placeholder="Search Google Maps">
-        <span id="clear-search" class="glyphicon glyphicon-remove">&times;</span>
+        <span id="clear-search" data-bind="click: resetMarkersToDefault" class="glyphicon glyphicon-remove">&times;</span>
         <div class="clear"></div>
       </div>
 

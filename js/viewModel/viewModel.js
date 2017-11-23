@@ -25,17 +25,7 @@
   // document.getElementById('hide-listings').addEventListener('click', hideListings);
   // document.getElementById('search-input').addEventListener('keyup', filterPlace);
 
-  document.getElementById('clear-search').addEventListener('click', resetMarkersToDefault);
-
-  function resetMarkersToDefault() {
-    for (var i = 0; i < markers.length; i++) {
-      markers[i].setIcon(null);
-      markers[i].setMap(map);
-    }
-    largeInfowindow.open(null, null);
-    $('.search-input').val('');
-    filterPlace();
-  }
+  // document.getElementById('clear-search').addEventListener('click', resetMarkersToDefault);
 
   // This function populate the infowindow when the marker is clicked. We will only allow
   // one infowindow which will open at the marker that is clicked, and populate based
@@ -126,7 +116,7 @@ let ViewModel = function() {
   });
 
   // Create markers when initialize the app
-  this.createMarkers = function (places) {
+  this.createMarkers = function () {
     // Extend the boundaries of the map for each marker and display the marker
     var bounds = new google.maps.LatLngBounds();
     for (var i = 0; i < locations.length; i++) {
@@ -177,8 +167,9 @@ let ViewModel = function() {
   this.searchInput = ko.observable('');
 
   // Filter place in the palcelists
-  self.filterPlace = function () {
+  this.filterPlace = function () {
     var filterInput = self.searchInput();
+    console.log(filterInput);
     var placesToBeFilter = $('#places').find('li');
     for (i = 0; i < placesToBeFilter.length; i++) {
       if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
@@ -202,6 +193,18 @@ let ViewModel = function() {
     }
   }
 
+  this.resetMarkersToDefault = function () {
+    // console.log(111);
+    for (var i = 0; i < markers.length; i++) {
+      console.log(111);
+      markers[i].setIcon(null);
+      markers[i].setMap(map);
+    }
+    largeInfowindow.open(null, null);
+    $('.search-input').val('');
+    self.searchInput = ko.observable('');
+    this.filterPlace();
+  }
 
 }
 
