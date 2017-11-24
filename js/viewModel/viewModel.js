@@ -180,3 +180,23 @@ function initMap() {
 
   ko.applyBindings(new ViewModel());
 }
+
+// Display error info when map data can't be loaded
+// Fill the map div with the error info
+var handleMapLoadError = function() {
+  let mapContainer = $('#map')[0];
+  let errorInfoContainer = $('<div id="error-info"></div>');
+  errorInfoContainer.css({
+    'position': 'absolute',
+    'left': '0',
+    'right': '0',
+    'top': '0',
+    'bottom': '0',
+    'textAlign': 'center'
+  });
+  errorInfoContainer.html(
+    '<span class="map-error-info"> Map could not get loaded </span>' +
+    '<span class="map-error-info"> Please check network or firewall </span>'
+  );
+  mapContainer.append(errorInfoContainer[0]);
+};

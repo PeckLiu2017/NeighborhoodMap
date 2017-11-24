@@ -8,8 +8,6 @@
 </head>
 
 <body>
-  <!-- Use any element to open the sidenav -->
-  <!-- <span class="open-side-panel" onclick="openNav()"> ☰ </span> -->
   <div id="toggle-side-panel" class="hidden">
     <span class="open-panel-icon"></span>
     <span class="close-panel-icon"></span>
@@ -24,20 +22,18 @@
         <div class="clear"></div>
       </div>
 
-      <!-- <ul id="places"></ul> -->
       <ul data-bind="foreach: placesList" class="places">
         <li data-bind="text: title, click: $parent.selectPlace"></li>
       </ul>
     </div>
 
     <div id="map"></div>
-  <!-- </div> -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&libraries=geometry&v=3&callback=initMap" async defer></script>
   <script src="js/knockout/knockout-3.2.0.js"></script>
   <script src="js/jquery/jquery.js"></script>
   <script src="js/model/model.js"></script>
   <script src="js/view/view.js"></script>
   <script src="js/viewModel/viewModel.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&libraries=geometry&v=3&callback=initMap" async defer onerror="handleMapLoadError()"></script>
 
 </body>
 

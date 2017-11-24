@@ -5,6 +5,15 @@ html, body {
   padding: 0;
 }
 
+.map-error-info {
+  display: block;
+  font-size: 3em;
+  position: relative;
+  left: 0px;
+  right: 0px;
+  top: 35%;
+}
+
 #toggle-side-panel{
   border-radius:2px;
   position: fixed;
