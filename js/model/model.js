@@ -1,6 +1,6 @@
 /**
  *  ============================================================================================
- *  @description this file store locations and map style datas as well as create Class Location
+ *  @description This file store locations and map style datas as well as create Class Location
  *  ============================================================================================
  */
 

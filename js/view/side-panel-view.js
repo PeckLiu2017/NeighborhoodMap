@@ -1,7 +1,7 @@
 /**
  *  =================================================================================
  *  @description
- *  code in this file handle animations on side panel —— $('#mySidenav') element and its
+ *  Code in this file handle animations on side panel —— $('#mySidenav') element and its
  *  trigger —— $('#toggle-side-panel') element
  *  =================================================================================
  */
