@@ -17,13 +17,13 @@ $('#toggle-side-panel').click(function(e) {
       $('.open-panel-icon').css('visibility', 'visible');
       $('.close-panel-icon').css('visibility', 'hidden');
       $('#mySidenav').toggleClass('open');
-      $('#toggle-side-panel').css('left', '0');
+      $('#toggle-side-panel').toggleClass('panel-open');
       $('#myPopup').toggleClass('panel-open');
     } else {
       $('.open-panel-icon').css('visibility', 'hidden');
       $('.close-panel-icon').css('visibility', 'visible');
       $('#mySidenav').toggleClass('open');
-      $('#toggle-side-panel').css('left', '25%');
+      $('#toggle-side-panel').toggleClass('panel-open');
       $('#myPopup').toggleClass('panel-open');
     }
   }

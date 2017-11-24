@@ -21,16 +21,17 @@ cd NeighborhoodMap
 Click the index.html, you can run this App.
 
 ### How to use
+1.In small screen device ,you can hold down the cursor and drag map to see more place. 
 
-1.You can drag little person icon on the right-bottom corner of this map to see full screen street view.
+2.You can drag little person icon on the right-bottom corner of this map to see full screen street view.
 
-2.Click toggle div on the left-top corner to open side panel and click it again to close it.
+3.Click toggle div on the left-top corner to open side panel and click it again to close it.
 
-3.Type place name to filter default places.Click the one of the filtered items to open its information window and see more.
+4.Type place name to filter default places.Click the one of the filtered items to open its information window and see more.
 
-4.Click close icon on the right-top corner to close information window.
+5.Click close icon on the right-top corner to close information window.
 
-5.Click marker directly can also open information window to see more details.
+6.Click marker directly can also open information window to see more details.
 
 ### license
 

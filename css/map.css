@@ -127,10 +127,27 @@ html, body {
 }
 
 
-/* Change sidenav width to 25% when it has been opend */
+/* Change sidenav width and toggle div's left attribute to 25% when sidenav has been opend */
 
-.open {
-  width: 25%;
+@media screen and (max-width: 2000px) {
+  #mySidenav.open {
+    width: 25%;
+  }
+  #toggle-side-panel.panel-open {
+    left: 25%;
+  }
+}
+
+
+/* Change sidenav width and toggle div's left attribute to 80% when sidenav has been opend */
+
+@media screen and (max-width: 460px) {
+  #mySidenav.open {
+    width: 80%;
+  }
+  #toggle-side-panel.panel-open {
+    left: 80%;
+  }
 }
 
 
