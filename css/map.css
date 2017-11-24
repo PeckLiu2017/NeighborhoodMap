@@ -5,6 +5,9 @@ html, body {
   padding: 0;
 }
 
+
+/* Show error infos when the browser has trouble load Google Map API  */
+
 .map-error-info {
   display: block;
   font-size: 3em;
@@ -14,8 +17,11 @@ html, body {
   top: 35%;
 }
 
-#toggle-side-panel{
-  border-radius:2px;
+
+/* css for the div to open or close side panel */
+
+#toggle-side-panel {
+  border-radius: 2px;
   position: fixed;
   top: 2%;
   left: 0;
@@ -25,6 +31,28 @@ html, body {
   z-index: 1;
   transition: 0.5s
 }
+
+
+/*
+ * When side panel is closed
+ * this icon shows in toggle div
+ */
+
+.open-panel-icon {
+  content: "";
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent #555;
+}
+
+
+/*
+ * When side panel is opened
+ * this icon shows in toggle div
+ */
 
 .close-panel-icon {
   visibility: hidden;
@@ -37,15 +65,12 @@ html, body {
   border-color: transparent #555 transparent transparent;
 }
 
-.open-panel-icon {
-  content: "";
-  position: absolute;
-  top: 40%;
-  left: 40%;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent transparent #555;
-}
+
+/*
+ * css for popuptext span to show tips info
+ * it is hidden by default
+ * it will be showed when toggle button has been clicked
+ */
 
 #toggle-side-panel .popuptext {
   visibility: hidden;
@@ -62,11 +87,16 @@ html, body {
   left: 130%;
 }
 
+
+/* Show tips info in popuptext span when mouse over toggle div */
+
 #toggle-side-panel .show {
   visibility: visible;
 }
 
-/* Popup arrow */
+
+/* left triangle arrow beside popuptext span */
+
 #toggle-side-panel .popuptext::after {
   content: "";
   position: absolute;
@@ -78,40 +108,56 @@ html, body {
 }
 
 
-/* The side navigation menu */
+
+/*
+ * The side panel
+ * its width is 0 by default
+ */
+
 .sidenav {
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
+  height: 100%;
+  width: 0;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 2;
-  background-color: #111; /* Black*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
 }
+
+
+/* Change sidenav width to 25% when it has been opend */
 
 .open {
   width: 25%;
 }
 
-.sidenav .searchbox{
+
+/*
+ * searchbox
+ * it contains a search input
+ * a clear button
+ * and a clear float div
+ */
+
+.sidenav .searchbox {
   padding: 0 1em;
   background: #4387fd;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2), 0 -1px 0px rgba(0,0,0,0.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
 }
 
 .sidenav .searchbox .search-input {
   float: left;
   display: inline-block;
-  border-radius:5px;
-  border-radius:5px;
+  border-radius: 5px;
+  border-radius: 5px;
   border: none;
   padding: 0 0.4em;
   margin: 1em 0 1em 1em;
   line-height: 4.5em;
   width: 90%;
-  outline:none;
+  outline: none;
 }
 
 .sidenav .searchbox span {
@@ -128,23 +174,32 @@ html, body {
   position: absolute;
   right: 10%;
   top: 0;
-  border-top-right-radius:5px;
-  border-bottom-right-radius:5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
+
+/* clear float */
+
 .clear {
-  clear:both;/*主要使用这个属性来清除浮动*/
+  clear: both;
   height: 0;
   line-height: 0;
   font-size: 0;
 }
 
+
+/* titles ul element store all default locations */
+
 .sidenav .places {
   padding: 0 1em;
 }
 
+
+/* store every default locations */
+
 .sidenav .places li {
-  padding:  1em 0.4em;
+  padding: 1em 0.4em;
   text-decoration: none;
   font-size: 14px;
   color: #818181;
@@ -152,21 +207,17 @@ html, body {
   transition: 0.3s
 }
 
-.sidenav .options-box {
-  position: relative;
-  background: #fff;
-  border-radius: 3px;
-  height: 100%;
-  line-height: 35px;
-  padding: 10px 10px 30px 10px;
-  text-align: left;
-}
+
+/* map container div*/
 
 #map {
   float: left;
   width: 100%;
   height: 100%;
 }
+
+
+/* streetview div */
 
 #pano {
   width: 200px;
