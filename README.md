@@ -1,8 +1,8 @@
 ### About this app
 
-This is a app using Google Map service to show neighborhood street view. There are 6 default locations will be marked in the map when the
+This is a app using Google Map service to show neighborhood street view.
 
-app starts.
+There are 6 default locations will be marked in the map when the app starts.
 
 ### Install and Running
 
@@ -27,9 +27,9 @@ Click the index.html, you can run this App.
 
 3.Click toggle div on the left-top corner to open and close side panel.
 
-4.Type place name to filter default places.Click the one of the filtered items to open its information window and see
+4.Type place name to filter default places.
 
-  more.
+  Click the one of the filtered items to open its information window and see more.
 
 5.Click close icon on the right-top corner to close information window.
 
