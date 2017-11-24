@@ -69,7 +69,7 @@ html, body {
 /*
  * css for popuptext span to show tips info
  * it is hidden by default
- * it will be showed when mouse over toggle button and disappear when mouse leave it
+ * it will be showed when cursor over toggle button and disappear when cursor leave it
  */
 
 #toggle-side-panel .popuptext {
@@ -88,7 +88,7 @@ html, body {
 }
 
 
-/* Show tips info in popuptext span when mouse over toggle div */
+/* Show tips info in popuptext span when cursor over toggle div */
 
 #toggle-side-panel .show {
   visibility: visible;
