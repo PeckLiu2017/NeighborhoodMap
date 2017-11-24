@@ -21,7 +21,7 @@ html, body {
   left: 0;
   padding: 1.8em 0.8em;
   background: white;
-  /*border: 1px solid #969393;*/
+  border: 1px solid #969393;
   z-index: 1;
   transition: 0.5s
 }
@@ -134,7 +134,6 @@ html, body {
 
 .clear {
   clear:both;/*主要使用这个属性来清除浮动*/
-  /*为了不让ie具有一定的空间，个人建议加上下面三个属性*/
   height: 0;
   line-height: 0;
   font-size: 0;

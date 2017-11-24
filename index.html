@@ -1,83 +1,53 @@
-<!doctype html>
+<!DOCTYPE html>
+<html>
 
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="chrome=1">
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-  <link rel="stylesheet" href="css/main1119.css" />
-  <title>快速入门</title>
+  <link rel="stylesheet" href="css/map.css">
+  <title>NeighborhoodMap</title>
 </head>
 
 <body>
-  <!-- 地图容器 -->
-  <div id="container"></div>
-  <div id="panel"></div>
-  <div id="myPageTop">
-    <table>
-      <tr>
-        <td>
-          <label>请输入关键字：</label>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <input id="tipinput" />
-        </td>
-      </tr>
-    </table>
+  <!-- Click this div to open or close side panel -->
+  <div id="toggle-side-panel" class="hidden">
+    <span class="open-panel-icon"></span>
+    <span class="close-panel-icon"></span>
+    <!-- Show tips info in this span when mouse over or leave this toggle div -->
+    <span class="popuptext" id="myPopup"></span>
   </div>
-  <!-- 异步加载高德地图 JavaScript API -->
-  <script src="https://webapi.amap.com/maps?v=1.4.0&key=f3ae7ada0f0fc985249bb386d66bb142&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
-  <!-- 加载滚动条插件 -->
-  <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
-  <script>
-    // 创建地图对象
-    var map = new AMap.Map('container', {
-      // resizeEnable: true,
-      zoom: 10,
-      center: [116.480983, 40.0958]
-    });
 
-    //搜索地名的输入提示 Autocomplete 插件的参数
-    var autoOptions = {
-      input: "tipinput"
-    };
+  <!-- Side panel portion -->
+  <div id="mySidenav" class="sidenav">
 
-    // 加载 Autocomplete 插件
-    var auto = new AMap.Autocomplete(autoOptions);
-    // var markers = [];
-    auto.search('天安门', function(status, result) {
-      // result.tips.forEach(function(location) {
-      //   markers.push(location)
-      //
-      // });
-      console.log(result.tips[0].location);
-      //根据 result.tips 里的地点来设置标记点
-      var marker = new AMap.Marker({
-        position: [result.tips[2].location.lng, result.tips[2].location.lat], //marker所在的位置
-        map: map //创建时直接赋予map属性
-      });
-      //也可以在创建完成后通过setMap方法执行地图对象
-      marker.setMap(map);
-    });
+    <div class="searchbox">
+      <!-- Users can type location they want to search in this input field-->
+      <input data-bind="value: searchInput,valueUpdate : 'afterkeydown',event: { 'keyup': filterPlace }" class="search-input" placeholder="Search Google Maps">
+      <!-- Click this false button will clear text in the search input above, show all locations in location list below and reset all markers appearance to default-->
+      <span id="clear-search" data-bind="click: resetMarkersToDefault" class="glyphicon glyphicon-remove">&times;</span>
+      <!-- clear float -->
+      <div class="clear"></div>
+    </div>
 
-    // var placeSearch = new AMap.PlaceSearch({
-    //   pageSize: 5,
-    //   pageIndex: 1,
-    //   city: "010", //城市
-    //   map: map,
-    //   panel: "panel"
-    // }); //构造地点查询类
-    // AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
-    // function select(e) {
-    //   placeSearch.setCity(e.poi.adcode);
-    //   placeSearch.search(e.poi.name); //关键字查询查询
-    //   // placeSearch.search('北京西站', function(status, result) {
-    //   //   //TODO : 按照自己需求处理查询结果
-    //   //   console.log(result);
-    //   // })
-    // };
-  </script>
+    <!-- All default location titles will be listed in this ul element -->
+    <ul data-bind="foreach: placesList" class="places">
+      <!-- When a location be clicked, function selectPlace will be triggered, and a infowindow of this location will be show on the map -->
+      <li data-bind="text: title, click: $parent.selectPlace"></li>
+    </ul>
+  </div>
+
+  <!-- Display map in this div element -->
+  <div id="map"></div>
+
+  <!-- Use knockout library -->
+  <script src="js/knockout/knockout-3.2.0.js"></script>
+  <!-- Use jquery library -->
+  <script src="js/jquery/jquery.js"></script>
+  <!-- Load the app code -->
+  <script src="js/model/model.js"></script>
+  <script src="js/view/view.js"></script>
+  <script src="js/viewModel/viewModel.js"></script>
+  <!-- Load JavaScript API asynchronously -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&libraries=geometry&v=3&callback=initMap" async defer onerror="handleMapLoadError()"></script>
 </body>
 
 </html>
