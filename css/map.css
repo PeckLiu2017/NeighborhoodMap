@@ -23,12 +23,12 @@ html, body {
 #toggle-side-panel {
   border-radius: 2px;
   position: fixed;
-  top: 2%;
+  top: 15%;
   left: 0;
   padding: 1.8em 0.8em;
   background: white;
   border: 1px solid #969393;
-  z-index: 1;
+  z-index: 2;
   transition: 0.5s
 }
 
