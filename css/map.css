@@ -213,37 +213,37 @@ html, body {
   height: 30%;
   border-bottom: 1px solid #E6E6E6;
   text-align: center;
+  background: #4285f4;
+  color: #fff;
 }
 
-/* show error  weather info when api don't response */
-
-.weather-info {
-  position: relative;
-  top: 50%;
-}
+/* weather info contains city, temperature, description and weather condition icon */
 
 .weather .weather-city {
   position: absolute;
-  left: 5%;
-  bottom: 0;
+  left: 8%;
+  bottom: 60%;
+  font-size: 2em;
 }
 
 .weather .weather-temp {
   position: absolute;
-  right: 10%;
-  bottom: 60%;
+  left: 10%;
+  bottom: 40%;
 }
 
 .weather .weather-description {
   position: absolute;
-  right: 10%;
-  bottom: 40%;
+  left: 10%;
+  bottom: 20%;
 }
 
 .weather img {
   position: absolute;
   right: 10%;
-  bottom: 5%;
+  bottom: 45%;
+  height: 50%;
+  width: 25%;
 }
 
 /* show error  weather info when api don't response */
