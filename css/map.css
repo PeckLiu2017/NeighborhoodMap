@@ -246,13 +246,6 @@ html, body {
   width: 25%;
 }
 
-/* show error  weather info when api don't response */
-
-.weather-error-info {
-  position: relative;
-  top: 50%;
-}
-
 
 /* titles ul element store all default locations */
 

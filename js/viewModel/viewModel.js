@@ -13,6 +13,7 @@
  * @param {FromGoogleMap} largeInfowindow a window to show marker information
  * @param {FromGoogleMap} bounds a instance of Google Map LatLngBounds class
  * @param {FromGoogleMap} flagIcon a customized marker icon
+ * @param {FromOpenWeatherMap} weatherInfo weather API response form OpenWeatherMap
  */
 
   var map;
@@ -20,11 +21,13 @@
   var largeInfowindow;
   var bounds;
   var flagIcon;
+  var weatherInfo;
+
 /**
  * @description
  * Function initMap is a callback function to be executed after Google Map API loaded
  * Global variable declared above will be defined here.
- * And then ,use knockout.js to manage viewModel by ko.applyBindings(new ViewModel());
+ * And then ,use getWeather() to load weather data knockout.js to manage viewModel by ko.applyBindings(new ViewModel());
  */
   function initMap() {
     // Create a map object and specify the DOM element for display.
@@ -59,31 +62,41 @@
         new google.maps.Point(10, 34),
         new google.maps.Size(21, 34));
       return markerImage;
-    }
-    // use knockout.js to manage viewModel
-    ko.applyBindings(new ViewModel());
-  }
+    };
+
+    // load weather data form OpenWeatherMap
+    getWeather();
+  };
+
+  /**
+    * @description
+    * Function getWeather load weather data form OpenWeatherMap asynchronously
+    * And then ,use knockout.js to manage viewModel by ko.applyBindings(new ViewModel());
+    */
+  function getWeather() {
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New%20York&APPID=6e60598959607c579f6ccf9bb51890b", function(json) {
+       weatherInfo = JSON.parse(JSON.stringify(json));
+       ko.applyBindings(new ViewModel());
+     }).fail(function(){
+       ko.applyBindings(new ViewModel());
+       $('.weather').css('height','50%').text('Something went wrong about weather info');
+     });
+  };
+
 
 /**
   * @description
-  * Function initMap is a callback function to be executed after Google Map API loaded
-  * Global variable declared above will be defined here.
-  * And then ,use knockout.js to manage viewModel by ko.applyBindings(new ViewModel());
+  * ViewModel contains code about createMarkers, selectPlace, filterPlace, filterMarker, resetMarkersToDefault
+  * populateInfowindow, getStreetView and weatherInfo bindings.
+  * if weatherInfo loaded failed, it will handle error by exiting code
   */
-  let ViewModel = function() {
+  var ViewModel = function() {
     var self = this;
     // Push all default location titles will be listed in ul element into placesList
     this.placesList = ko.observableArray([]);
     locations.forEach(function(locationItem) {
       self.placesList.push(new Location(locationItem));
     });
-
-    this.weatherInfo = new Weather(weatherInfo);
-
-
-    // this.currentWeather = getWeather();
-    //
-    // console.log(this.currentWeather);
 
     // Create markers when initialize the app
     this.createMarkers = function() {
@@ -117,7 +130,7 @@
       }
       // Adjust to make boundaries fit the map
       map.fitBounds(bounds);
-    }
+    };
 
     // Execute createMarkers
     this.createMarkers();
@@ -140,7 +153,7 @@
     // Watch the value of search input
     this.searchInput = ko.observable('');
 
-    // Filter place in the palcelists,
+    // Filter place in the placelists,
     // all place items except the selected one will disappear by set its display attriabute to none
     this.filterPlace = function() {
       var filterInput = self.searchInput();
@@ -153,7 +166,7 @@
         }
       }
       this.filterMarker();
-    }
+    };
 
     // Filter Markers if its associated place item value don't contain the value of search input
     this.filterMarker = function() {
@@ -165,7 +178,7 @@
           markers[i].setMap(null);
         }
       }
-    }
+    };
 
     // Reset markers icons to default, clear the value of search input and close largeInfowindow
     // if clear-search span has been clicked
@@ -178,11 +191,11 @@
       $('.search-input').val('');
       self.searchInput = ko.observable('');
       this.filterPlace();
-    }
+    };
 
     // This function populate the infowindow when the marker is clicked. We will only allow
     // one infowindow which will open at the marker that is clicked, and populate based
-    // on that markers position
+    // on that markers position -- Udacity comments
     this.populateInfowindow = function(marker, infowindow) {
       // Check to make sure the infowindow is not already opened on this marker.
       if (infowindow.marker != marker) {
@@ -207,7 +220,7 @@
         // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
       }
-    }
+    };
 
     // In case the status is OK, which means the pano was found, compute the
     // position of the streetview image, then calculate the heading, then get a
@@ -231,23 +244,18 @@
       } else {
         largeInfowindow.setContent('<div>No Street View Found</div>');
       }
-    }
+    };
+
+    // if weather API loaded failed, use return to exit code
+    ;(function() {
+      if (weatherInfo) {
+        this.weatherInfo = new Weather(weatherInfo);
+      } else {
+        return;
+      }
+    })();
   }
 
-  /**
-   * @description
-   * Get local weather information
-   */
-   // function getWeather() {
-   //   $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New York&APPID=6e60598959607c579f6ccf9bb51890bb", function(json) {
-   //      // $('.weather').text(JSON.stringify(json));
-   //      console.log(JSON.stringify(json));
-   //      return JSON.stringify(json);
-   //    }).fail(function(){
-   //      $('.weather').css('height','100%');
-   //      $('.weather-error-info').css('height','100%').text('Please check network or firewall');
-   //    });
-   // }
 
   /**
    * @description
@@ -255,8 +263,8 @@
    * Fill the map div with the error information.
    */
     var handleMapLoadError = function() {
-      let mapContainer = $('#map')[0];
-      let errorInfoContainer = $('<div id="error-info"></div>');
+      var mapContainer = $('#map')[0];
+      var errorInfoContainer = $('<div id="error-info"></div>');
       errorInfoContainer.css({
         'position': 'absolute',
         'left': '0',
