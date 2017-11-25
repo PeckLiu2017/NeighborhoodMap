@@ -230,7 +230,7 @@ var styles = [{
 var Location = function(data) {
   this.title = data.title;
   this.location = data.location;
-}
+};
 
 /**
  *  @description Use konckout to manage Class Weather
@@ -240,4 +240,4 @@ var Weather = function(data) {
   this.temp = data.main.temp + '℉';
   this.description = data.weather[0].description;
   this.icon = 'http://openweathermap.org/img/w/' + data.weather[0].icon + '.png';
-}
+};
