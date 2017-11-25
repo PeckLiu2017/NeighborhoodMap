@@ -1,8 +1,12 @@
 ### About this app
 
-This is a app using Google Map service to show neighborhood street view.
+This is a app used Google Map and OpenWeatherMap service to show neighborhood street view
+
+as well as get current weather information.
 
 There are 6 default locations will be marked in the map when the app starts.
+
+You can see weather information in side panel if there is not a network error.
 
 ### Install and Running
 

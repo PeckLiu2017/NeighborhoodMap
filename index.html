@@ -28,6 +28,15 @@
       <div class="clear"></div>
     </div>
 
+    <!-- Local weather information -->
+    <div data-bind="with:weatherInfo" class="weather">
+      <span data-bind="text: city" class="weather-city"></span>
+      <span data-bind="text: temp" class="weather-temp"></span>
+      <span data-bind="text: description" class="weather-description"></span>
+      <img data-bind="attr: {src: icon}" alt="current weather" class="weather-icon">
+      <span class="weather-error-info"></span>
+    </div>
+
     <!-- All default location titles will be listed in this ul element -->
     <ul data-bind="foreach: placesList" class="places">
       <!-- When a location be clicked, function selectPlace will be triggered, and a infowindow of this location will be show on the map -->

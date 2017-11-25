@@ -78,6 +78,13 @@
       self.placesList.push(new Location(locationItem));
     });
 
+    this.weatherInfo = new Weather(weatherInfo);
+
+
+    // this.currentWeather = getWeather();
+    //
+    // console.log(this.currentWeather);
+
     // Create markers when initialize the app
     this.createMarkers = function() {
       for (var i = 0; i < locations.length; i++) {
@@ -226,6 +233,21 @@
       }
     }
   }
+
+  /**
+   * @description
+   * Get local weather information
+   */
+   // function getWeather() {
+   //   $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New York&APPID=6e60598959607c579f6ccf9bb51890bb", function(json) {
+   //      // $('.weather').text(JSON.stringify(json));
+   //      console.log(JSON.stringify(json));
+   //      return JSON.stringify(json);
+   //    }).fail(function(){
+   //      $('.weather').css('height','100%');
+   //      $('.weather-error-info').css('height','100%').text('Please check network or firewall');
+   //    });
+   // }
 
   /**
    * @description

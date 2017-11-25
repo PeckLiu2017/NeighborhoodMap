@@ -223,10 +223,66 @@ var styles = [{
   }
 ];
 
+var weatherInfo = {
+  "coord": {
+    "lon": -74.01,
+    "lat": 40.71
+  },
+  "weather": [{
+    "id": 800,
+    "main": "Clear",
+    "description": "clear sky",
+    "icon": "01d"
+  }],
+  "base": "stations",
+  "main": {
+    "temp": 281.65,
+    "pressure": 1017,
+    "humidity": 34,
+    "temp_min": 281.15,
+    "temp_max": 282.15
+  },
+  "visibility": 16093,
+  "wind": {
+    "speed": 3.1,
+    "deg": 200
+  },
+  "clouds": {
+    "all": 1
+  },
+  "dt": 1511542560,
+  "sys": {
+    "type": 1,
+    "id": 2120,
+    "message": 0.1682,
+    "country": "US",
+    "sunrise": 1511524455,
+    "sunset": 1511559092
+  },
+  "id": 5128581,
+  "name": "New York",
+  "cod": 200
+}
+
+console.log(weatherInfo.name);
+console.log(weatherInfo.main.temp);
+console.log(weatherInfo.weather[0].description);
+console.log(weatherInfo.weather[0].icon);
 /**
  *  @description Use konckout to manage Class Location
  */
 let Location = function(data) {
   this.title = data.title;
   this.location = data.location;
+}
+
+/**
+ *  @description Use konckout to manage Class Weather
+ */
+var Weather = function(data) {
+  // 这样看起来很难看，但必须这样封装一层，否则我找不到其它让它不报错的方法
+  this.city = data.name;
+  this.temp = data.main.temp + '℉';
+  this.description = data.weather[0].description;
+  this.icon = 'http://openweathermap.org/img/w/' + data.weather[0].icon + '.png';
 }
