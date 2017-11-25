@@ -64,10 +64,10 @@
       return markerImage;
     };
 
+    // Load weather data form OpenWeatherMap
+    getWeather();
   };
 
-  // Load weather data form OpenWeatherMap
-  getWeather();
 
   /**
     * @description
@@ -75,7 +75,7 @@
     * And then ,use knockout.js to manage viewModel by ko.applyBindings(new ViewModel());
     */
   function getWeather() {
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New%20York&APPID=6e60598959607c579f6ccf9bb51890b", function(json) {
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New%20York&APPID=6e60598959607c579f6ccf9bb51890bb", function(json) {
        weatherInfo = JSON.parse(JSON.stringify(json));
        ko.applyBindings(new ViewModel());
      }).fail(function(){
@@ -99,7 +99,7 @@
       self.placesList.push(new Location(locationItem));
     });
 
-    // Create markers when initialize the app
+    // Create markers when initialize the app -- Udacity Course
     this.createMarkers = function() {
       for (var i = 0; i < locations.length; i++) {
         var position = locations[i].location;
@@ -226,7 +226,7 @@
     // In case the status is OK, which means the pano was found, compute the
     // position of the streetview image, then calculate the heading, then get a
     // panorama from that and set the options
-    // Otherwise, show 'No Street View Found' prompt
+    // Otherwise, show 'No Street View Found' prompt -- Udacity comments
     this.getStreetView = function(data, status) {
       if (status == google.maps.StreetViewStatus.OK) {
         var nearStreetViewLocation = data.location.latLng;
