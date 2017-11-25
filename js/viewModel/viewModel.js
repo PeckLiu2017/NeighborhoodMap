@@ -64,9 +64,10 @@
       return markerImage;
     };
 
-    // load weather data form OpenWeatherMap
-    getWeather();
   };
+
+  // Load weather data form OpenWeatherMap
+  getWeather();
 
   /**
     * @description
