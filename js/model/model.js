@@ -38,10 +38,10 @@ var locations = [{
     }
   },
   {
-    title: 'TriBeCa Artsy Bachelor Pad',
+    title: 'The Spotted Pig',
     location: {
-      lat: 40.7195264,
-      lng: -74.0089934
+      lat: 40.7356067,
+      lng: -74.0066706
     }
   },
   {

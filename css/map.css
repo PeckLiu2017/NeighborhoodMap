@@ -6,6 +6,50 @@ html, body {
 }
 
 
+/*
+ * Fit phone browsers
+ * Change sidenav width and toggle div's left attribute to 25% when sidenav has been opend
+ */
+
+@media screen and (max-width: 2000px) {
+  #mySidenav.open {
+    width: 25%;
+  }
+  #toggle-side-panel.panel-open {
+    left: 25%;
+  }
+}
+
+
+/*
+ * Fit tablet browsers
+ * Change sidenav width and toggle div's left attribute to 80% when sidenav has been opend
+ */
+
+@media screen and (max-width: 1200px) {
+  #mySidenav.open {
+    width: 50%;
+  }
+  #toggle-side-panel.panel-open {
+    left: 50%;
+  }
+}
+
+/*
+ * Fit desktop browsers
+ * Change sidenav width and toggle div's left attribute to 80% when sidenav has been opend
+ */
+
+@media screen and (max-width: 460px) {
+  #mySidenav.open {
+    width: 80%;
+  }
+  #toggle-side-panel.panel-open {
+    left: 80%;
+  }
+}
+
+
 /* Show error infos when the browser has trouble load Google Map API  */
 
 .map-error-info {
@@ -108,7 +152,6 @@ html, body {
 }
 
 
-
 /*
  * The side panel
  * its width is 0 by default
@@ -125,30 +168,6 @@ html, body {
   border: 1px solid #E6E6E6;
   overflow-x: hidden;
   transition: 0.5s;
-}
-
-
-/* Change sidenav width and toggle div's left attribute to 25% when sidenav has been opend */
-
-@media screen and (max-width: 2000px) {
-  #mySidenav.open {
-    width: 25%;
-  }
-  #toggle-side-panel.panel-open {
-    left: 25%;
-  }
-}
-
-
-/* Change sidenav width and toggle div's left attribute to 80% when sidenav has been opend */
-
-@media screen and (max-width: 460px) {
-  #mySidenav.open {
-    width: 80%;
-  }
-  #toggle-side-panel.panel-open {
-    left: 80%;
-  }
 }
 
 
@@ -259,10 +278,16 @@ html, body {
 .sidenav .places li {
   padding: 1em 0.4em;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 1.2em;
   color: #818181;
   display: block;
   transition: 0.3s
+}
+
+/* set cursor style to pointer when hover on element */
+
+.sidenav .places:hover {
+  cursor: pointer;
 }
 
 
