@@ -8,7 +8,7 @@ You can see weather information in side panel and location details in informatio
 
 ### Install and Running
 
-On your computer, type this line in your terminal:
+If you use MacOS, on your computer, type this line in your terminal:
 
 ```
 git clone https://github.com/PeckLiu2017/NeighborhoodMap.git
@@ -18,13 +18,14 @@ And then
 
 ```
 cd NeighborhoodMap
+open .
 ```
 
-Click the index.html, you can run this app.
+Locate and click the index.html in you Finder, you can run this app.
 
-You can find Download ZIP link by click green 'Clone or download' button on the right side of this page. And then , decompress the project and use it.
+You can also find Download ZIP link by click green 'Clone or download' button on the right side of this page. And then , decompress the project and use it.
 
-Anyway, open the index.html page in browser to run this app.
+Anyway, find the index.html page in folder NeighborhoodMap, and then ,open it in browser to run this app.
 
 ### How to use
 1.In small screen device ,you can hold down the cursor and drag map to see more place.
