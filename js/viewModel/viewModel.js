@@ -1,8 +1,8 @@
 /**
  *  =================================================================================
  *  @description
- *  Code in this file handle load Google Map API asynchronously to get map service
- *  and create ViewModel managed by knockout.js
+ *  Code in this file handle load Google Map, OpenWeatherMap API asynchronously to
+ *  get map service, weather data and create ViewModel managed by knockout.js
  *  =================================================================================
  */
 
@@ -140,13 +140,11 @@
     // Other markers will disappear to Highlight the selected place
     this.selectPlace = function(selectedPlace) {
       for (var i = 0; i < markers.length; i++) {
+        markers[i].setIcon(null);
         if (markers[i].title == selectedPlace.title) {
           markers[i].setIcon(flagIcon);
           markers[i].setMap(map);
           self.populateInfowindow(markers[i], largeInfowindow);
-        } else {
-          markers[i].setIcon(null);
-          markers[i].setMap(null);
         }
       }
     };
