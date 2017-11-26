@@ -18,14 +18,12 @@ And then
 
 ```
 cd NeighborhoodMap
-open .
+open index.html
 ```
 
-Locate and click the index.html in you Finder, you can run this app.
+When index.html has been open in browser ,this app is running.
 
-You can also find Download ZIP link by click green 'Clone or download' button on the right side of this page. And then , decompress the project and use it.
-
-Anyway, find the index.html page in folder NeighborhoodMap, and then ,open it in browser to run this app.
+You can also find Download ZIP link by click green 'Clone or download' button on the right side of this page. And then , decompress the project and use it. locate the index.html page in folder NeighborhoodMap, open it in browser to start.
 
 ### How to use
 1.In small screen device ,you can hold down the cursor and drag map to see more place.
