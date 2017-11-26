@@ -1,8 +1,9 @@
 /**
  *  =================================================================================
  *  @description
- *  Code in this file handle load API of Google Map, OpenWeatherMap asynchronously to
- *  get map service, weather data and create ViewModel managed by knockout.js
+ *  Code in this file handle load API of Google Map, OpenWeatherMap and Foursquare
+ *  asynchronously to get map service, weather data and location details
+ *  ViewModel managed by knockout.js also created here
  *  =================================================================================
  */
 
@@ -65,7 +66,8 @@
     };
 
     // Load weather data form OpenWeatherMap
-    getWeather();
+    // getWeather();
+    ko.applyBindings(new ViewModel());
   };
 
 
@@ -75,7 +77,7 @@
     * And then ,use knockout.js to manage viewModel by ko.applyBindings(new ViewModel());
     */
   function getWeather() {
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New%20York&APPID=6e60598959607c579f6ccf9bb51890b", function(json) {
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New%20York&APPID=6e60598959607c579f6ccf9bb51890bb", function(json) {
        weatherInfo = JSON.parse(JSON.stringify(json));
        ko.applyBindings(new ViewModel());
      }).fail(function(){
@@ -83,6 +85,48 @@
        $('.weather').css('height','50%').text('Something went wrong about weather info');
      });
   };
+
+  /**
+    * @description
+    * Function foursquareInfos load location details data form Foursquare asynchronously
+    * it managed by knockout.js and called in ViewModel.createMarkers
+    */
+   function foursquareInfos(location, details) {
+      var client_id = '2E25PY0MVBJ4GOLQE0GRPVXAHG1R5C2KXFYIQLIV2LGMPIMD';
+      var client_secret = 'TIE2CIPA3WDIVSAMKKD5GWGX4WIRNDTHJO5KGCCM3L3UHEAU';
+      var position = location.location.lat + ',' + location.location.lng;
+      var query = location.title;
+      var url = 'https://api.foursquare.com/v2/venues/search?client_id=' + client_id + '&client_secret=' + client_secret + '&v=20170801&ll=' + position + '&query=' + query + '&limit=1';
+      $.ajax({
+        dataType: "json",
+        url: url,
+      }).done(function(result){
+        if (result.response.venues.length > 0) {
+          var name = result.response.venues[0].name;
+          var formattedAddress = result.response.venues[0].location.formattedAddress;
+          var street = formattedAddress[0];
+          var city = formattedAddress[1];
+          var state = formattedAddress[2];
+
+          var detailsHtml = '<div>' + name + ' nearby';
+          if (formattedAddress) {
+            detailsHtml += '<br>' + street;
+            detailsHtml += '<br>' + city;
+            detailsHtml += '<br>' + state;
+          }
+          detailsHtml += '<br>(Information from <a href="https://foursquare.com/">Foursquare</a>)'
+          detailsHtml += '</div>';
+          details(detailsHtml);
+        } else {
+          var detailsHtml = '<div><p>(Foursquare has no data about this place)</p></div>';
+          details(detailsHtml);
+        }
+      }).fail(function(){
+        var detailsHtml = '<div><p>(Error occurs when loading Foursquare data)</p></div>';
+        details(detailsHtml);
+      });
+    };
+
 
 
 /**
@@ -105,8 +149,11 @@
           position: position,
           title: title,
           animation: google.maps.Animation.DROP,
-          id: i
+          id: i,
+          details: ko.observable('')
         });
+        // Load data asynchronously form Foursquare
+        foursquareInfos(locations[i], marker.details);
         // Push the marker to our array of markers
         markers.push(marker);
         // Create an onclick event to open an infowindow at each marker
@@ -220,38 +267,37 @@
           infowindow.marker = null;
           self.filterMarker();
         });
+        // In case the status is OK, which means the pano was found, compute the
+        // position of the streetview image, then calculate the heading, then get a
+        // panorama from that and set the options
+        // Otherwise, show 'No Street View Found' prompt -- Udacity comments
+        function getStreetView (data, status) {
+          if (status == google.maps.StreetViewStatus.OK) {
+            var nearStreetViewLocation = data.location.latLng;
+            largeInfowindow.setContent('<div>' + marker.details() + '</div><div id="pano"></div>');
+            var panoramaOptions = {
+              // Stree view position
+              position: nearStreetViewLocation,
+              // Set angle of view
+              pov: {
+                heading: 100,
+                pitch: 30
+              }
+            };
+            var panorama = new google.maps.StreetViewPanorama(
+              document.getElementById('pano'), panoramaOptions);
+          } else {
+            largeInfowindow.setContent('<div>No Street View Found</div>');
+          }
+        };
         // Get Google map's StreetViewService
         var streetViewService = new google.maps.StreetViewService();
         // Use streetview service to get the closest streetview image within
         // 50 meters of the markers position
         var radius = 50;
-        streetViewService.getPanoramaByLocation(marker.position, radius, self.getStreetView);
+        streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
         // Open the infowindow on the correct marker.
         infowindow.open(map, marker);
-      }
-    };
-
-    // In case the status is OK, which means the pano was found, compute the
-    // position of the streetview image, then calculate the heading, then get a
-    // panorama from that and set the options
-    // Otherwise, show 'No Street View Found' prompt -- Udacity comments
-    this.getStreetView = function(data, status) {
-      if (status == google.maps.StreetViewStatus.OK) {
-        var nearStreetViewLocation = data.location.latLng;
-        largeInfowindow.setContent('<div>' + 'Neighborhood And Nearby Area' + '</div><div id="pano"></div>');
-        var panoramaOptions = {
-          // Stree view position
-          position: nearStreetViewLocation,
-          // Set angle of view
-          pov: {
-            heading: 100,
-            pitch: 30
-          }
-        };
-        var panorama = new google.maps.StreetViewPanorama(
-          document.getElementById('pano'), panoramaOptions);
-      } else {
-        largeInfowindow.setContent('<div>No Street View Found</div>');
       }
     };
 

@@ -45,10 +45,10 @@ var locations = [{
     }
   },
   {
-    title: 'Chinatown Homey Space',
+    title: 'Tenement Museum',
     location: {
-      lat: 40.7180628,
-      lng: -73.9961237
+      lat: 40.7187958,
+      lng: -73.99006969999999
     }
   }
 ];
