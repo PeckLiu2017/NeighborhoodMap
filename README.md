@@ -22,10 +22,9 @@ cd NeighborhoodMap
 
 Click the index.html, you can run this app.
 
-You can also download ZIP directly by click green 'Clone or download' button on the right side of
-https://github.com/PeckLiu2017/NeighborhoodMap. And then , decompress the project and use it.
+You can find Download ZIP link by click green 'Clone or download' button on the right side of this page. And then , decompress the project and use it.
 
-Anyway, open the index.html page in browser can run this app.
+Anyway, open the index.html page in browser to run this app.
 
 ### How to use
 1.In small screen device ,you can hold down the cursor and drag map to see more place.

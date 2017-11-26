@@ -67,7 +67,6 @@
 
     // Load weather data form OpenWeatherMap
     getWeather();
-    // ko.applyBindings(new ViewModel());
   };
 
 

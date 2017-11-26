@@ -55,7 +55,7 @@ var locations = [{
 
 /**
  *  @description style datas form Udacity course
- *  it will be used to create a new StyledMapType object that passing it as an array of styles
+ *  it will be used to create a new StyledMapType object
  */
 var styles = [{
     elementType: 'geometry',
