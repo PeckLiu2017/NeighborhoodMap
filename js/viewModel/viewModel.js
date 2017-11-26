@@ -1,7 +1,7 @@
 /**
  *  =================================================================================
  *  @description
- *  Code in this file handle load Google Map, OpenWeatherMap API asynchronously to
+ *  Code in this file handle load API of Google Map, OpenWeatherMap asynchronously to
  *  get map service, weather data and create ViewModel managed by knockout.js
  *  =================================================================================
  */
@@ -27,7 +27,7 @@
  * @description
  * Function initMap is a callback function to be executed after Google Map API loaded
  * Global variable declared above will be defined here.
- * And then ,use getWeather() to load weather data knockout.js to manage viewModel by ko.applyBindings(new ViewModel());
+ * And then ,use getWeather() to load weather data
  */
   function initMap() {
     // Create a map object and specify the DOM element for display.
@@ -50,7 +50,7 @@
     // Extend the boundaries of the map for each marker and display the marker
     bounds = new google.maps.LatLngBounds();
 
-    // Style the markers a bit. This will be my animation marker icon
+    // This will be my animation marker icon when select an place in placesList
     flagIcon = markMarkerIcon('0091ff');
 
     // marker flagIcon
@@ -75,7 +75,7 @@
     * And then ,use knockout.js to manage viewModel by ko.applyBindings(new ViewModel());
     */
   function getWeather() {
-    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New%20York&APPID=6e60598959607c579f6ccf9bb51890bb", function(json) {
+    $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=New%20York&APPID=6e60598959607c579f6ccf9bb51890b", function(json) {
        weatherInfo = JSON.parse(JSON.stringify(json));
        ko.applyBindings(new ViewModel());
      }).fail(function(){
@@ -116,15 +116,19 @@
         markers.push(marker);
         // Create an onclick event to open an infowindow at each marker
         marker.addListener('click', function() {
+          self.toggleBounce(this);
           self.populateInfowindow(this, largeInfowindow);
         });
         // Create an mouseover event to change default icon to flagIcon at each marker
         marker.addListener('mouseover', function() {
           this.setIcon(flagIcon);
         });
-        // Create an mouseout event to reset all marker icon to default
+        // When an mouseout event happen, reset this marker icon to default
+        // if there isn't any animation on this marker
         marker.addListener('mouseout', function() {
-          this.setIcon(null);
+          if (this.getAnimation() === null) {
+            this.setIcon(null);
+          }
         });
         // Adjust the boundaries of the map for each marker
         bounds.extend(marker.position);
@@ -136,10 +140,29 @@
     // Execute createMarkers
     this.createMarkers();
 
+    // Toggle this marker icon's bounce state when an click event happen on it
+    this.toggleBounce = function(marker) {
+      // Stop other marker icon's animation and set their icon to default
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setAnimation(null);
+        markers[i].setIcon(null);
+      }
+      // If there is animation on this marker
+      if (marker.getAnimation() !== null) {
+        // Set animation to null
+        marker.setAnimation(null);
+      } else {
+        // otherwise, set bounce animation on it and change its icon to flagIcon
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        marker.setIcon(flagIcon);
+      }
+    }
+
     // Click a place item to see its streetview and other infos ,its associate marker icon will be animate to flagIcon
-    // Other markers will disappear to Highlight the selected place
+    // All bounce animation will stop, Other markers will disappear to Highlight the selected place
     this.selectPlace = function(selectedPlace) {
       for (var i = 0; i < markers.length; i++) {
+        markers[i].setAnimation(null);
         markers[i].setIcon(null);
         if (markers[i].title == selectedPlace.title) {
           markers[i].setIcon(flagIcon);
@@ -205,7 +228,6 @@
         infowindow.addListener('closeclick', function() {
           for (var i = 0; i < markers.length; i++) {
             markers[i].setIcon(null);
-            markers[i].setMap(map);
           }
           infowindow.marker = null;
           self.filterPlace();
