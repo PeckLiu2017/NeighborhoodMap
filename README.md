@@ -22,7 +22,13 @@ And then
 cd NeighborhoodMap
 ```
 
-Click the index.html, you can run this App.
+Click the index.html, you can run this app.
+
+You can also download ZIP directly by click green 'Clone or download' button on the right side of
+
+https://github.com/PeckLiu2017/NeighborhoodMap. Decompress the project and use it.
+
+Anyway, open the index.html page in browser can run this app.
 
 ### How to use
 1.In small screen device ,you can hold down the cursor and drag map to see more place.
