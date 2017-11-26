@@ -229,9 +229,9 @@
       var filterInput = self.searchInput();
       for (i = 0; i < markers.length; i++) {
         if (markers[i].title.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
-          markers[i].setMap(map);
+          markers[i].setVisible(true);
         } else {
-          markers[i].setMap(null);
+          markers[i].setVisible(false);
         }
       }
     };
@@ -244,8 +244,7 @@
         markers[i].setMap(map);
       }
       largeInfowindow.close();
-      $('.search-input').val('');
-      self.searchInput = ko.observable('');
+      self.searchInput('');
       this.filterMarker();
     };
 
@@ -266,10 +265,10 @@
           infowindow.marker = null;
           self.filterMarker();
         });
-        // In case the status is OK, which means the pano was found, compute the
-        // position of the streetview image, then calculate the heading, then get a
-        // panorama from that and set the options
-        // Otherwise, show 'No Street View Found' prompt -- Udacity comments
+        // Get Street View in largeInfowindow
+        // as street view comments, marker.details() which stored location datas from Foursquare
+        // has also been put into largeInfowindow.
+        // Handle error, show 'No Street View Found' prompt when fail to load Street View
         function getStreetView (data, status) {
           if (status == google.maps.StreetViewStatus.OK) {
             var nearStreetViewLocation = data.location.latLng;
