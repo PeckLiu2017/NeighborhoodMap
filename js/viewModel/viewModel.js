@@ -229,9 +229,11 @@
       var filterInput = self.searchInput();
       for (i = 0; i < markers.length; i++) {
         if (markers[i].title.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
-          markers[i].setVisible(true);
+          // In order to stop bounce animation after closing infowindow
+          // replace markers[i].setVisible() with markers[i].setMap()
+          markers[i].setMap(map);
         } else {
-          markers[i].setVisible(false);
+          markers[i].setMap(null);
         }
       }
     };
