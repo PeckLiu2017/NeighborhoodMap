@@ -47,6 +47,8 @@
   <!-- Display map in this div element -->
   <div id="map"></div>
 
+  <!-- Load JavaScript API asynchronously and handle error -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&libraries=geometry&v=3&callback=initMap" defer onerror="handleMapLoadError()"></script>
   <!-- Use knockout library -->
   <script src="js/knockout/knockout-3.2.0.js"></script>
   <!-- Use jquery library -->
@@ -55,8 +57,6 @@
   <script src="js/model/model.js"></script>
   <script src="js/view/sidePanelView.js"></script>
   <script src="js/viewModel/viewModel.js"></script>
-  <!-- Load JavaScript API asynchronously and handle error -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWq4B5OpYQH8-6XaJzVRTmpG0xySmoUI&libraries=geometry&v=3&callback=initMap" async defer onerror="handleMapLoadError()"></script>
 </body>
 
 </html>
