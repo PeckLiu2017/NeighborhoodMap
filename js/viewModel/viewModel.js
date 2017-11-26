@@ -87,17 +87,12 @@
 
 /**
   * @description
-  * ViewModel contains code about createMarkers, selectPlace, filterPlace, filterMarker, resetMarkersToDefault
-  * populateInfowindow, getStreetView and weatherInfo bindings.
+  * ViewModel contains code about createMarkers, toggleBounce, display placesList, selectPlace, filterMarker,
+  * resetMarkersToDefault, populateInfowindow, getStreetView and weatherInfo bindings.
   * if weatherInfo loaded failed, it will handle error by exiting code
   */
   var ViewModel = function() {
     var self = this;
-    // Push all default location titles will be listed in ul element into placesList
-    this.placesList = ko.observableArray([]);
-    locations.forEach(function(locationItem) {
-      self.placesList.push(new Location(locationItem));
-    });
 
     // Create markers when initialize the app -- Udacity Course
     this.createMarkers = function() {
@@ -158,6 +153,17 @@
       }
     }
 
+    // All default location titles will be listed in ul element at first
+    // then, they will be filtered according to the value of search filter input,
+    // all place items except the matched parts will disappear
+    this.searchInput = ko.observable('');
+    this.placesList = ko.dependentObservable(function() {
+      var search = self.searchInput().toUpperCase();
+        return ko.utils.arrayFilter(locations, function(location) {
+          return location.title.toUpperCase().indexOf(search) >= 0;
+        });
+    });
+
     // Click a place item to see its streetview and other infos ,its associate marker icon will be animate to flagIcon
     // All bounce animation will stop, Other markers will disappear to Highlight the selected place
     this.selectPlace = function(selectedPlace) {
@@ -170,24 +176,6 @@
           self.populateInfowindow(markers[i], largeInfowindow);
         }
       }
-    };
-
-    // Watch the value of search input
-    this.searchInput = ko.observable('');
-
-    // Filter place in the placelists,
-    // all place items except the selected one will disappear by set its display attriabute to none
-    this.filterPlace = function() {
-      var filterInput = self.searchInput();
-      var placesToBeFilter = $('.places').find('li');
-      for (i = 0; i < placesToBeFilter.length; i++) {
-        if (placesToBeFilter[i].innerHTML.toUpperCase().indexOf(filterInput.toUpperCase()) > -1) {
-          placesToBeFilter[i].style.display = "";
-        } else {
-          placesToBeFilter[i].style.display = "none";
-        }
-      }
-      this.filterMarker();
     };
 
     // Filter Markers if its associated place item value don't contain the value of search input
@@ -212,7 +200,7 @@
       largeInfowindow.close();
       $('.search-input').val('');
       self.searchInput = ko.observable('');
-      this.filterPlace();
+      this.filterMarker();
     };
 
     // This function populate the infowindow when the marker is clicked. We will only allow
@@ -230,7 +218,7 @@
             markers[i].setIcon(null);
           }
           infowindow.marker = null;
-          self.filterPlace();
+          self.filterMarker();
         });
         // Get Google map's StreetViewService
         var streetViewService = new google.maps.StreetViewService();
